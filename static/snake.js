@@ -3,7 +3,7 @@
   const SIZE = 560, dpr = Math.min(window.devicePixelRatio || 1, 2);
   cv.width = SIZE * dpr; cv.height = SIZE * dpr; ctx.scale(dpr, dpr);
   const C = SIZE / N;
-  const speeds = { slow: 140, normal: 100, fast: 65 };
+  const speeds = { slow: 210, normal: 160, fast: 110 }, minMs = { slow: 130, normal: 85, fast: 60 };
   let speed = G.get('snake_speed', 'normal'), walls = G.get('snake_walls', 'on');
   let snake, dir, queue, food, score, best, state = 'ready', last = 0, acc = 0, eatFx = 0;
 
@@ -54,7 +54,7 @@
   function loop(t) {
     if (state !== 'run') return;
     acc += t - last; last = t;
-    const ms = speeds[speed];
+    const ms = Math.max(minMs[speed], speeds[speed] - score * 2.5);
     while (acc >= ms && state === 'run') { step(); acc -= ms; }
     draw(); if (state === 'run') requestAnimationFrame(loop);
   }
