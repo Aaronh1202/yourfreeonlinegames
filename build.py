@@ -160,14 +160,144 @@ G["checkers"] = dict(
          ("Can two people play on one device?", "Yes. Pick 2 Players and take turns on the same phone, tablet or computer."),
          ("Can a regular piece move backward?", "No. Only kings can move backward. Regular pieces move and jump forward only.")])
 
-ORDER = ["solitaire", "mahjong", "snake-game", "minesweeper", "2048", "sudoku", "checkers", "dinosaur-game"]
+TOAST = '<div class="toast hidden" id="toast"></div>'
+G["spider-solitaire"] = dict(
+    emoji="🕷️", color="#3d4fc9", name="Spider Solitaire", short="1, 2 or 4 suits, the classic two-deck game",
+    title="Spider Solitaire – Play Free Spider Solitaire Online (1, 2 & 4 Suits)",
+    desc="Play Spider Solitaire free online with 1, 2 or 4 suits. Drag or tap to move, unlimited undo, hints and best times. No download, works on phone and computer.",
+    h1="Spider Solitaire", sub="Build full runs from King down to Ace in the same suit to clear them off the table.",
+    js="spider.js",
+    game=f'''<div class="bar">{pills(("time","Time","0:00"),("moves","Moves","0"),("score","Score","500"),("deals","Deals left","5"),("best","Best","—"))}<div class="grow"></div>{seg("suits",[("1","1 Suit"),("2","2 Suits"),("4","4 Suits")],"Suits")}<button class="btn" id="hint">💡 Hint</button><button class="btn" id="dealbtn">🂠 Deal</button><button class="btn" id="undo">↶ Undo</button><button class="btn primary" id="new">New game</button></div>
+<div class="stage"><div id="sp"></div>{OV}</div>{TOAST}
+<p class="hint">Tap a card to auto-move it, or drag it · Tap the stock (bottom right) to deal a new row · H for hint, D to deal</p>''',
+    content="""<h2>How to play Spider Solitaire</h2><p>Spider is played with two decks (104 cards) dealt into 10 columns. Your goal is to build complete runs from <b>King down to Ace in the same suit</b>. When a full run is made, it's removed from the table. Clear all 8 runs to win.</p>
+<ul><li><b>Moving cards:</b> any card can go on a card one rank higher, of any suit. For example, a 7 can go on any 8.</li><li><b>Moving groups:</b> you can only move several cards together if they're in order <b>and the same suit</b>.</li><li><b>Empty columns:</b> any card or same-suit run can go in an empty column.</li><li><b>Dealing:</b> tap the stock in the bottom right to deal one new card onto every column. Every column must have at least one card first.</li></ul>
+<h2>1 suit, 2 suits or 4 suits?</h2><p><b>1 Suit</b> uses only spades and is the best place to start. Most games can be won. <b>2 Suits</b> adds hearts and is much more challenging. <b>4 Suits</b> is expert level, where only a small share of games are won.</p>
+<h2>Spider Solitaire tips</h2><ol><li><b>Empty a column</b> as early as you can. It's the most powerful tool in the game.</li><li><b>Build in the same suit</b> whenever you have a choice. Mixed-suit stacks are hard to move later.</li><li><b>Uncover face-down cards</b> before dealing from the stock.</li><li><b>Before dealing</b>, make as many moves as possible, since a new row covers everything.</li><li>Use <b>Undo</b> and <b>Hint</b> freely while you learn.</li></ol>""",
+    faq=[("Is Spider Solitaire free here?", "Yes. It's completely free with no download or sign-up, and it works on phones, tablets and computers."),
+         ("How is Spider Solitaire scored?", "You start with 500 points. Each move costs 1 point, and each completed King-to-Ace run earns 100 points."),
+         ("Why can't I deal new cards?", "In Spider Solitaire, every column must have at least one card before you can deal a new row. Move a card into any empty column first."),
+         ("Which version is easiest?", "1 Suit is the easiest and most relaxing. 2 Suits is a good next step, and 4 Suits is for experts.")])
+
+G["freecell"] = dict(
+    emoji="🂡", color="#2a7fbf", name="FreeCell", short="Every card face up, pure strategy",
+    title="FreeCell – Play Free FreeCell Solitaire Online",
+    desc="Play FreeCell Solitaire free online. All cards face up, four free cells, smart auto-move to the foundations, unlimited undo and best times. No download needed.",
+    h1="FreeCell", sub="All 52 cards are face up. Use the four free cells to sort every card onto the foundations.",
+    js="freecell.js",
+    game=f'''<div class="bar">{pills(("time","Time","0:00"),("moves","Moves","0"),("best","Best","—"),("gno","Game","#"))}<div class="grow"></div><button class="btn" id="restart">⟲ Restart</button><button class="btn" id="undo">↶ Undo</button><button class="btn primary" id="new">New game</button></div>
+<div class="stage"><div id="fc"></div>{OV}</div>{TOAST}
+<p class="hint">Tap a card to auto-move it, or drag it · Top left: 4 free cells · Top right: foundations</p>''',
+    content="""<h2>How to play FreeCell</h2><p>All 52 cards are dealt face up into 8 columns. The goal is to move every card onto the four <b>foundations</b> (top right), one per suit, from Ace up to King.</p>
+<ul><li><b>Tableau:</b> build columns down in alternating colors, like a black 6 on a red 7.</li><li><b>Free cells:</b> the four spaces in the top left can each hold one card for later.</li><li><b>Empty columns:</b> any card can go in an empty column.</li><li><b>Moving groups:</b> you can move a run of cards at once if you have enough free cells and empty columns to do it one card at a time. The game does that math for you.</li></ul>
+<h2>FreeCell strategy</h2><ol><li><b>Free the Aces and 2s</b> first. Cards that are safe to send home are moved automatically.</li><li><b>Keep free cells open.</b> Each empty cell doubles how many cards you can move at once with an empty column.</li><li><b>Empty columns are gold.</b> An empty column is worth more than a free cell.</li><li><b>Plan a few moves ahead.</b> Since every card is visible, almost every deal can be solved with careful play.</li></ol>""",
+    faq=[("Can every FreeCell game be won?", "Almost. Over 99.99% of FreeCell deals can be solved. If you get stuck, use Undo or Restart to try a different plan."),
+         ("How many cards can I move at once?", "With F empty free cells and E empty columns, you can move (F + 1) × 2^E cards at once. Moving into an empty column counts one fewer empty column."),
+         ("Why do some cards move by themselves?", "When a card is safe to send to its foundation and can't be needed in the tableau anymore, it moves there automatically to save you time."),
+         ("What's the difference between FreeCell and Solitaire?", "In classic Klondike Solitaire many cards start face down. In FreeCell every card is face up from the start, so it's a game of skill and planning rather than luck.")])
+
+G["pyramid-solitaire"] = dict(
+    emoji="🔺", color="#d9822b", name="Pyramid Solitaire", short="Pair cards that add up to 13",
+    title="Pyramid Solitaire – Play Free Pyramid Solitaire Online",
+    desc="Play Pyramid Solitaire free online. Remove pairs of cards that add up to 13 to clear the pyramid. Undo, score, win streaks and 3 passes through the deck.",
+    h1="Pyramid Solitaire", sub="Remove pairs that add up to 13. Kings go on their own. Clear the whole pyramid to win.",
+    js="pyramid.js",
+    game=f'''<div class="bar">{pills(("left","Pyramid","28"),("score","Score","0"),("passes","Recycles","2"),("time","Time","0:00"),("streak","Streak","0"))}<div class="grow"></div><button class="btn" id="undo">↶ Undo</button><button class="btn primary" id="new">New game</button></div>
+<div class="stage"><div id="py"></div>{OV}</div>
+<p class="hint">Click two cards that add up to 13 · Kings remove on their own · Click the deck (or press Space) to draw</p>''',
+    content="""<h2>How to play Pyramid Solitaire</h2><p>28 cards are dealt in a pyramid of 7 rows. Remove cards in <b>pairs that add up to 13</b>. Clear the entire pyramid to win.</p>
+<ul><li><b>Card values:</b> Ace = 1, number cards are their number, Jack = 11, Queen = 12, King = 13.</li><li><b>Pairs that make 13:</b> A+Q, 2+J, 3+10, 4+9, 5+8 and 6+7. A <b>King</b> is 13 by itself, so it's removed alone.</li><li><b>Free cards:</b> you can only use cards that aren't covered by a card in the row below.</li><li><b>The deck:</b> click the deck to flip a card onto the waste pile. The top waste card can pair with a free pyramid card. You can recycle the deck twice.</li></ul>
+<h2>Pyramid tips</h2><ol><li><b>Work from the bottom up</b> and try to uncover cards evenly on both sides.</li><li><b>Don't rush pairs</b> with the waste pile if a pyramid card could use that match.</li><li><b>Count the cards.</b> There are four of each rank, so if all four 6s are buried, plan how to reach them.</li></ol>""",
+    faq=[("What adds up to 13 in Pyramid Solitaire?", "Ace + Queen, 2 + Jack, 3 + 10, 4 + 9, 5 + 8 and 6 + 7. Kings are worth 13 on their own."),
+         ("How many times can I go through the deck?", "Three times in total: your first pass plus two recycles."),
+         ("Is Pyramid Solitaire hard?", "Yes. It depends a lot on the deal, and only a small share of games can be fully cleared, so a win streak is something to be proud of."),
+         ("Can I undo a move?", "Yes. Use Undo, or press Ctrl+Z on a computer.")])
+
+G["chess"] = dict(
+    emoji="♟️", color="#5b6bb5", name="Chess", short="Play the computer or a friend",
+    title="Chess – Play Free Chess Online vs Computer or 2 Player",
+    desc="Play free chess online against the computer (easy, medium or hard) or a friend on the same device. Full rules: castling, en passant, promotion, check and checkmate.",
+    h1="Chess", sub="Play White against the computer, or play a friend on the same device.",
+    js="chess.js",
+    game=f'''<div class="bar">{pills(("wins","Wins","0"),("losses","Losses","0"))}<div class="grow"></div>{seg("mode",[("cpu","vs Computer"),("pvp","2 Players")],"Mode")}{seg("level",[("easy","Easy"),("medium","Medium"),("hard","Hard")],"Difficulty")}<button class="btn" id="undo">↶ Undo</button><button class="btn primary" id="new">New game</button></div>
+<p class="ckstatus" id="turn">Your move (White)</p>
+<div class="stage"><div class="chesswrap"><div class="capline" id="capb"></div><div class="chess" id="chess"></div><div class="capline" id="capw"></div><div id="promo" class="hidden"></div></div>{OV}</div>
+<p class="hint">Click a piece, then click a highlighted square · Esc to cancel · Ctrl+Z to undo</p>''',
+    content="""<h2>How to play chess</h2><p>Each player starts with 16 pieces. The goal is to <b>checkmate</b> the other king, which means attacking it so it has no way to escape.</p>
+<ul><li><b>King:</b> one square in any direction.</li><li><b>Queen:</b> any number of squares in a straight line or diagonal.</li><li><b>Rook:</b> any number of squares in a straight line.</li><li><b>Bishop:</b> any number of squares diagonally.</li><li><b>Knight:</b> moves in an L shape and can jump over pieces.</li><li><b>Pawn:</b> moves forward one square (or two on its first move) and captures diagonally. Reach the last row to <b>promote</b> it to a queen, rook, bishop or knight.</li></ul>
+<h2>Special moves</h2><ul><li><b>Castling:</b> move the king two squares toward a rook, and the rook jumps to the other side. Neither piece can have moved, and the king can't be in or pass through check.</li><li><b>En passant:</b> if a pawn moves two squares and lands beside your pawn, you can capture it as if it had moved one square, but only on the very next move.</li></ul>
+<h2>Chess tips for beginners</h2><ol><li><b>Control the center</b> with your pawns and pieces early.</li><li><b>Develop knights and bishops</b> before moving the same piece twice.</li><li><b>Castle early</b> to keep your king safe.</li><li><b>Before every move</b>, check what your opponent is threatening.</li><li><b>Don't give away pieces.</b> Make sure every piece you move is protected.</li></ol>""",
+    faq=[("How strong is the computer?", "Easy makes plenty of mistakes and is great for learning. Medium plays solid, sensible moves. Hard looks several moves ahead and punishes blunders."),
+         ("Can I play chess with a friend?", "Yes. Choose 2 Players and take turns on the same device."),
+         ("When is a chess game a draw?", "When the player to move has no legal moves but isn't in check (stalemate), when the same position happens three times, after 50 moves each with no capture or pawn move, or when neither side has enough pieces left to checkmate."),
+         ("Can I take back a move?", "Yes. Press Undo or Ctrl+Z. Against the computer, it takes back both your move and the computer's reply.")])
+
+G["tic-tac-toe"] = dict(
+    emoji="⭕", color="#e0457b", name="Tic Tac Toe", short="Get three in a row to win",
+    title="Tic Tac Toe – Play Free Tic Tac Toe Online (vs Computer or 2 Player)",
+    desc="Play Tic Tac Toe free online against the computer (easy, medium or unbeatable) or with a friend. Get three X's or O's in a row to win. Score keeps track of every game.",
+    h1="Tic Tac Toe", sub="Get three in a row (across, down or diagonally) before your opponent does.",
+    js="tictactoe.js",
+    game=f'''<div class="bar"><div class="pill"><span id="lx">You (X)</span><b id="sx">0</b></div><div class="pill">Draws<b id="sd">0</b></div><div class="pill"><span id="lo">Computer (O)</span><b id="so">0</b></div><div class="grow"></div>{seg("mode",[("cpu","vs Computer"),("pvp","2 Players")],"Mode")}{seg("level",[("easy","Easy"),("medium","Medium"),("hard","Unbeatable")],"Difficulty")}<button class="btn" id="reset">Reset score</button></div>
+<p class="ckstatus" id="turn">Your turn (X)</p>
+<div class="stage" style="flex-direction:column;align-items:center;gap:14px"><div class="ttt" id="ttt"></div><button class="btn primary hidden" id="again">Play again</button></div>
+<p class="hint">Click a square · On a keyboard, use the number pad (1–9)</p>''',
+    content="""<h2>How to play Tic Tac Toe</h2><p>Two players take turns placing an <b>X</b> or an <b>O</b> on a 3×3 grid. The first player to get <b>three of their marks in a row</b>, across, down or diagonally, wins. If all nine squares fill up with no winner, the game is a draw.</p>
+<h2>How to win at Tic Tac Toe</h2><ol><li><b>Start in a corner.</b> It gives your opponent the most ways to go wrong.</li><li><b>If they start in a corner, take the center.</b> It's the safest reply.</li><li><b>Make a fork.</b> Set up two ways to win at once so your opponent can only block one.</li><li><b>Always block</b> when your opponent has two in a row.</li></ol>
+<h2>Can you beat the computer?</h2><p>On <b>Unbeatable</b>, the computer plays perfectly, so the best you can do is a draw. Try <b>Easy</b> or <b>Medium</b> to practice your forks. Players take turns going first after every game.</p>""",
+    faq=[("Can you always win Tic Tac Toe?", "No. If both players play perfectly, Tic Tac Toe always ends in a draw. You can only win if your opponent makes a mistake."),
+         ("Is the Unbeatable computer really unbeatable?", "Yes. It checks every possible move, so it never loses. The best you can get against it is a draw."),
+         ("Can two people play?", "Yes. Choose 2 Players and take turns on the same device."),
+         ("Who goes first?", "X goes first in the first game, and then the starting player switches after every game to keep it fair.")])
+
+G["word-search"] = dict(
+    emoji="🔤", color="#16a3a3", name="Word Search", short="Find hidden words in fun themes",
+    title="Word Search – Play Free Word Search Puzzles Online",
+    desc="Play free word search puzzles online. Pick a theme like animals, food or sports, choose easy to hard, and drag to find every hidden word. New puzzle every time.",
+    h1="Word Search", sub="Find every hidden word in the grid. Drag across the letters to circle a word.",
+    js="wordsearch.js",
+    game=f'''<div class="bar">{pills(("count","Found","0/0"),("time","Time","0:00"),("best","Best","—"))}<div class="grow"></div><select class="sel" id="theme" aria-label="Theme"></select>{seg("level",[("easy","Easy"),("medium","Medium"),("hard","Hard")],"Difficulty")}<button class="btn" id="hint">💡 Hint</button><button class="btn primary" id="new">New puzzle</button></div>
+<div class="stage" style="display:block"><div class="wslayout"><div class="ws" id="ws"></div><div class="wsside"><b>Theme: <span id="themename"></span></b><ul id="words"></ul></div></div>{OV}</div>
+<p class="hint">Press on the first letter and drag to the last letter of a word</p>''',
+    content="""<h2>How to play Word Search</h2><p>Words from the list are hidden in the grid of letters. Find each one and drag from its first letter to its last letter. Found words get colored in and crossed off the list. Find them all to win!</p>
+<h2>Difficulty levels</h2><ul><li><b>Easy:</b> 10×10 grid, 8 words, only across and down.</li><li><b>Medium:</b> 12×12 grid, 10 words, adds diagonals.</li><li><b>Hard:</b> 14×14 grid, 13 words, words can go in any direction, including backwards.</li></ul>
+<h2>Word search tips</h2><ol><li><b>Look for rare letters</b> like Q, Z, X, J and K. They're quick to spot.</li><li><b>Scan for the first two letters</b> of a word together, not just the first one.</li><li><b>Go row by row</b> when you're stuck, then column by column.</li><li><b>Search for double letters</b> like the "LL" in GORILLA or "OO" in BALLOON.</li></ol>
+<h2>Themes</h2><p>Choose from Animals, Food, Sports, Space, Ocean, Weather, Jobs, Colors, Holidays and Music, or let the game pick a random theme. Every puzzle is new.</p>""",
+    faq=[("Are the word search puzzles free?", "Yes. They're unlimited and free, and every puzzle is generated fresh."),
+         ("Can words go backwards?", "Only on Hard. Easy has words across and down, and Medium adds diagonals."),
+         ("Does word search work on phones?", "Yes. Press on the first letter of a word and slide your finger to the last letter."),
+         ("Is word search good for kids?", "Yes. Word searches build spelling, vocabulary and focus. Easy mode is great for younger players.")])
+
+G["hangman"] = dict(
+    emoji="🪢", color="#8a5cf6", name="Hangman", short="Guess the word one letter at a time",
+    title="Hangman – Play Free Hangman Game Online",
+    desc="Play the classic Hangman word game free online. Pick a category, guess letters with your keyboard or on screen, and build your win streak. Hundreds of words.",
+    h1="Hangman", sub="Guess the hidden word one letter at a time. You can make 6 wrong guesses.",
+    js="hangman.js",
+    game=f'''<div class="bar">{pills(("lives","Guesses left","6"),("streak","Streak","0"),("beststreak","Best streak","0"))}<div class="grow"></div><select class="sel" id="catsel" aria-label="Category"></select><button class="btn" id="hint">💡 Hint</button><button class="btn primary" id="new">New word</button></div>
+<div class="stage" style="display:block" id="hm"><p class="ckstatus">Category: <span id="cat"></span></p>
+<div class="hm"><svg viewBox="0 0 200 220"><line class="base" x1="20" y1="210" x2="140" y2="210"/><line class="base" x1="50" y1="210" x2="50" y2="20"/><line class="base" x1="50" y1="20" x2="130" y2="20"/><line class="base" x1="130" y1="20" x2="130" y2="45"/>
+<circle class="part" cx="130" cy="65" r="20"/><line class="part" x1="130" y1="85" x2="130" y2="140"/><line class="part" x1="130" y1="100" x2="105" y2="122"/><line class="part" x1="130" y1="100" x2="155" y2="122"/><line class="part" x1="130" y1="140" x2="110" y2="178"/><line class="part" x1="130" y1="140" x2="150" y2="178"/></svg>
+<div style="flex:1;min-width:260px"><div class="hmword" id="word"></div><p class="hmmsg" id="msg"></p><div style="text-align:center"><button class="btn primary hidden" id="again">Next word ➜</button></div></div></div>
+<div id="keys"></div></div>
+<p class="hint">Type letters on your keyboard or tap them on screen · Press Enter for the next word</p>''',
+    content="""<h2>How to play Hangman</h2><p>A secret word is hidden behind blank spaces, one for each letter. Guess one letter at a time. If the letter is in the word, it appears in every spot it belongs. If it isn't, another part of the figure is drawn. Guess the whole word before the figure is complete, which takes <b>6 wrong guesses</b>.</p>
+<h2>Hangman tips</h2><ol><li><b>Start with vowels:</b> E, A, O and I appear in almost every word.</li><li><b>Then try common consonants:</b> R, S, T, L and N.</li><li><b>Use the category</b> to narrow it down. A country or an animal is much easier to guess when you know which it is.</li><li><b>Look at the word's shape:</b> double letters and endings like -ING or -TION are big clues.</li><li><b>Hints</b> reveal a letter but cost one guess, so save them for when you're stuck.</li></ol>
+<h2>Categories</h2><p>Pick from Animals, Food, Countries, Sports, Movies, Nature, Jobs and Things, or play with a random category each round.</p>""",
+    faq=[("How many wrong guesses do I get?", "Six. Each wrong letter adds one part to the figure: head, body, two arms and two legs."),
+         ("Can I type my guesses?", "Yes. On a computer, just type letters on your keyboard. On a phone, tap the letters on screen."),
+         ("What is a win streak?", "Your streak counts how many words in a row you've guessed correctly. It resets when you miss one, and your best streak is saved."),
+         ("Is Hangman good for learning?", "Yes. It's a fun way to practice spelling and vocabulary for kids and adults.")])
+
+ORDER = ["solitaire", "spider-solitaire", "freecell", "pyramid-solitaire", "mahjong", "chess", "checkers", "snake-game", "minesweeper", "2048", "sudoku", "word-search", "hangman", "tic-tac-toe", "dinosaur-game"]
+NAV = ["solitaire", "spider-solitaire", "mahjong", "chess", "snake-game", "sudoku", "minesweeper"]
 
 ICON = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%23ffcc33'/><stop offset='1' stop-color='%23ff5c8a'/></linearGradient></defs><rect width='100' height='100' rx='26' fill='url(%23g)'/><text x='50' y='70' font-size='56' text-anchor='middle'>🎮</text></svg>"
 LOGO = '<a class="logo" href="./"><span class="mark">🎮</span><span>YourFree<em>OnlineGames</em></span></a>'
 
 def page(slug, title, desc, body, faq=None, ld_extra=None, cur=None):
     url = DOMAIN + "/" + ("" if slug == "index" else slug)
-    nav = "".join(f'<a href="{s}"{" class=on" if s == cur else ""}>{G[s]["emoji"]} {G[s]["name"]}</a>' for s in ORDER)
+    nav = "".join(f'<a href="{s}"{" class=on" if s == cur else ""}>{G[s]["emoji"]} {G[s]["name"]}</a>' for s in NAV) + '<a href="./#games">🎮 All games</a>'
     ld = [{"@context": "https://schema.org", "@type": "WebSite", "name": SITE, "url": DOMAIN + "/", "publisher": {"@type": "Person", "name": AUTHOR}}]
     if ld_extra: ld.append(ld_extra)
     if faq: ld.append({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faq]})
@@ -202,15 +332,15 @@ def card(s):
 
 pages = {}
 home = f'''<section class="hero"><h1>Play <span>Free Online Games</span></h1><p>The classics you love, ready to play instantly. No downloads, no sign-up and no limits. Works on your phone, tablet and computer.</p></section>
-<div class="cards">{"".join(card(s) for s in ORDER)}</div>
+<div class="cards" id="games">{"".join(card(s) for s in ORDER)}</div>
 <div class="content"><h2>Free games, right in your browser</h2><p>{SITE} brings together the most popular classic games in one fast, clean place. Every game loads in seconds, saves your best scores, and works just as well with a touchscreen as with a mouse and keyboard.</p>
-<ul><li><b>Card & tile games:</b> <a href="solitaire">Klondike Solitaire</a> and <a href="mahjong">Mahjong Solitaire</a>.</li><li><b>Board games:</b> <a href="checkers">Checkers</a> against the computer or a friend.</li><li><b>Puzzle games:</b> <a href="sudoku">Sudoku</a>, <a href="2048">2048</a> and <a href="minesweeper">Minesweeper</a>.</li><li><b>Arcade games:</b> the classic <a href="snake-game">Snake game</a> and the <a href="dinosaur-game">Dinosaur game</a>.</li></ul>
+<ul><li><b>Card games:</b> <a href="solitaire">Klondike Solitaire</a>, <a href="spider-solitaire">Spider Solitaire</a>, <a href="freecell">FreeCell</a> and <a href="pyramid-solitaire">Pyramid Solitaire</a>.</li><li><b>Tile games:</b> <a href="mahjong">Mahjong Solitaire</a>.</li><li><b>Board games:</b> <a href="chess">Chess</a>, <a href="checkers">Checkers</a> and <a href="tic-tac-toe">Tic Tac Toe</a>.</li><li><b>Word games:</b> <a href="word-search">Word Search</a> and <a href="hangman">Hangman</a>.</li><li><b>Puzzle games:</b> <a href="sudoku">Sudoku</a>, <a href="2048">2048</a> and <a href="minesweeper">Minesweeper</a>.</li><li><b>Arcade games:</b> the classic <a href="snake-game">Snake game</a> and the <a href="dinosaur-game">Dinosaur game</a>.</li></ul>
 <p>New games are added regularly, so check back soon.</p></div>'''
 home_faq = [("Are these games really free?", "Yes. Every game is free to play with no download, no account and no time limits."),
             ("Do the games work on mobile?", "Yes. Every game supports touch controls like tapping and swiping, and the layout adapts to your screen."),
             ("Do I need to download anything?", "No. All the games run instantly in your web browser.")]
-pages["index"] = page("index", "Free Online Games – Play Solitaire, Mahjong, Checkers & More (No Download)",
-    "Play free online games instantly: Solitaire, Mahjong, Checkers, Snake, Minesweeper, 2048, Sudoku and the Dinosaur game. No download or sign-up. Works on phone, tablet and computer.",
+pages["index"] = page("index", "Free Online Games – Play Solitaire, Spider Solitaire, Mahjong, Chess & More",
+    "Play 15 free online games instantly: Solitaire, Spider Solitaire, FreeCell, Mahjong, Chess, Checkers, Sudoku, Snake and more. No download or sign-up. Works on phone, tablet and computer.",
     home + '<div class="content"><h2>Frequently asked questions</h2><div class="faq">' + "".join(f"<details><summary>{q}</summary><p>{a}</p></details>" for q, a in home_faq) + "</div></div>", faq=home_faq)
 
 for s in ORDER:
@@ -241,7 +371,7 @@ PREVIEW = os.environ.get("PREVIEW")
 for slug, html in pages.items():
     if PREVIEW:
         html = re.sub(r'href="(%s)"' % "|".join(re.escape(s) for s in list(pages) if s != "index"), r'href="\1.html"', html)
-        html = html.replace('href="./"', 'href="index.html"')
+        html = html.replace('href="./"', 'href="index.html"').replace('href="./#games"', 'href="index.html#games"')
     (OUT / f"{slug}.html").write_text(html)
 urls = "".join(f"<url><loc>{DOMAIN}/{'' if s == 'index' else s}</loc></url>" for s in pages)
 (OUT / "sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>')
