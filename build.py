@@ -110,14 +110,15 @@ G["dinosaur-game"] = dict(
     desc="Play a free dinosaur game online. Jump over cacti, duck under birds and run as far as you can in this endless runner. Works offline-style in your browser on any device.",
     h1="Dinosaur Game", sub="Jump over cacti, duck under birds and see how far your dino can run.",
     js="dino.js",
-    game=f'''<div class="bar">{pills(("score","Score","0"),("best","Best","0"))}<div class="grow"></div><button class="btn" id="jump">⤒ Jump</button><button class="btn" id="duck">⤓ Duck (hold)</button></div>
+    game=f'''<div class="bar">{pills(("score","Score","0"),("best","Best","0"))}</div>
 <div class="stage"><canvas id="dino" width="900" height="300"></canvas>{OV}</div>
-<p class="hint">Space or ↑ to jump · ↓ to duck · On mobile, tap the game to jump</p>''',
-    content="""<h2>How to play the Dinosaur Game</h2><p>Your dino runs on its own, and it keeps getting faster. Press <b>Space</b> or the <b>Up arrow</b> to jump over cacti, and hold the <b>Down arrow</b> to duck under flying birds. On a phone, tap the game to jump and hold the Duck button to duck. The longer you survive, the higher your score.</p>
+<div class="dinopad"><button class="btn" id="duck">⬇ Duck<small>hold</small></button><button class="btn primary" id="jump">⬆ Jump<small>tap</small></button></div>
+<p class="hint">Space or ↑ to jump · ↓ to duck · On mobile: tap the game to jump, swipe down and hold to duck, or use the big buttons</p>''',
+    content="""<h2>How to play the Dinosaur Game</h2><p>Your dino runs on its own, and it keeps getting faster. Press <b>Space</b> or the <b>Up arrow</b> to jump over cacti, and hold the <b>Down arrow</b> to duck under flying birds. On a phone, tap the game to jump, and swipe down and hold (or press and hold the big Duck button) to duck. The longer you survive, the higher your score.</p>
 <h2>Tips for a high score</h2><ol><li><b>Jump a little early</b> as the game speeds up. The faster you go, the sooner you need to jump.</li><li><b>Duck to drop fast:</b> pressing down in the air makes your dino land quicker, which helps with close obstacles.</li><li><b>Watch bird height:</b> low birds must be jumped, high birds can be run under, and middle birds need a duck.</li><li><b>Stay relaxed.</b> Most runs end from jumping too early, not too late.</li></ol>
 <h2>Day and night</h2><p>Every 700 points, the sky switches between day and night. How many cycles can you make it through?</p>""",
     faq=[("Is this the Chrome dinosaur game?", "No. It's our own free dinosaur runner inspired by the classic offline dino game, with its own dino, birds and day/night sky."),
-         ("Does it work on phones?", "Yes. Tap the game to jump, and hold the Duck button to duck."),
+         ("How do I duck on my phone?", "Swipe down on the game and keep your finger down, or press and hold the big Duck button under the game. Ducking in the air also makes your dino drop faster."),
          ("Is my best score saved?", "Yes. Your high score is saved in your browser."),
          ("Why does the game get faster?", "Speed goes up the farther you run, which makes every run harder the longer you last.")])
 

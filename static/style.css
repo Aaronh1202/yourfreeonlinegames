@@ -152,3 +152,7 @@ canvas{display:block;max-width:100%}
 .pc.can:hover{transform:translateY(-3px)}
 .pc.sel{transform:translateY(-4px) scale(1.06);outline:3px solid #ffcc33;outline-offset:2px}
 .ckstatus{text-align:center;font-weight:800;font-size:18px;margin:0 0 12px}
+.dinopad{display:none;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.dinopad .btn{font-size:20px;padding:20px 0;border-radius:16px;display:flex;flex-direction:column;align-items:center;gap:4px;font-weight:800}
+.dinopad small{font-size:11px;font-weight:600;opacity:.75}
+@media(hover:none){.dinopad{display:grid}}

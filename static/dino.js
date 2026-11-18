@@ -121,7 +121,10 @@
   addEventListener('keydown', e => { if (!e.target.closest('input,textarea,select')) down(e); });
   addEventListener('keyup', e => { if (['ArrowDown', 's', 'S'].includes(e.key)) ducking = false; });
   // touch: tap top/anywhere = jump, swipe down / hold bottom button = duck
-  cv.addEventListener('pointerdown', e => { e.preventDefault(); jump(); });
+  let sy = null;
+  cv.addEventListener('pointerdown', e => { e.preventDefault(); sy = e.clientY; cv.setPointerCapture(e.pointerId); jump(); });
+  cv.addEventListener('pointermove', e => { if (sy !== null && e.clientY - sy > 22) ducking = true; });
+  ['pointerup', 'pointercancel'].forEach(ev => cv.addEventListener(ev, () => { sy = null; ducking = false; }));
   const dk = G.$('#duck');
   dk.addEventListener('pointerdown', e => { e.preventDefault(); ducking = true; });
   ['pointerup', 'pointerleave', 'pointercancel'].forEach(ev => dk.addEventListener(ev, () => ducking = false));
