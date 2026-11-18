@@ -469,7 +469,7 @@ def page(slug, title, desc, body, faq=None, ld_extra=None, cur=None, cfg=None):
 <body>
 <header class="top"><div class="wrap">{LOGO}<nav class="games" aria-label="Games">{nav}</nav></div></header>
 <main class="wrap">{body}</main>
-<footer><div class="wrap"><div><b>{SITE}</b><br>Free classic games, no download or sign-up.<br>Made by {AUTHOR} · © 2026</div><div>{foot}<br><a href="about">About</a><a href="privacy">Privacy</a></div></div></footer>
+<footer><div class="wrap"><div><b>{SITE}</b><br>Free classic games, no download or sign-up.<br>Made by {AUTHOR} · © 2026</div><div>{foot}<br><span class="legal-links"><a href="about">About</a><a href="contact">Contact</a><a href="terms">Terms</a><a href="privacy">Privacy</a></span></div></div></footer>
 </body>
 </html>"""
 
@@ -543,3 +543,6 @@ urls = "".join(f"<url><loc>{DOMAIN}/{'' if s == 'index' else s}</loc></url>" for
 (OUT / "sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>')
 (OUT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {DOMAIN}/sitemap.xml\n")
 print("built", len(pages), "pages")
+
+import adready
+adready.run(OUT, SITE, DOMAIN, "All games on this site")
