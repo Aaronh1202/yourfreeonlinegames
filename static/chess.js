@@ -14,7 +14,7 @@
   const isW = p => p && p === p.toUpperCase(), col = p => p ? (isW(p) ? 'w' : 'b') : null;
   const N8 = [-17, -15, -10, -6, 6, 10, 15, 17], KD = [[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]];
   const on = (r, c) => r >= 0 && r < 8 && c >= 0 && c < 8;
-  let S, hist, mode = G.get('ch_mode', 'cpu'), level = G.get('ch_level', 'medium'), sel = -1, targets = [], over = false, thinking = false, lastMv = null, keys = {};
+  let S, hist, mode = G.cfg.mode || G.get('ch_mode', 'cpu'), level = G.get('ch_level', 'medium'), sel = -1, targets = [], over = false, thinking = false, lastMv = null, keys = {};
 
   function init() {
     const row = 'rnbqkbnr';

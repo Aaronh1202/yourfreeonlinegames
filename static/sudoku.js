@@ -1,7 +1,7 @@
 (() => {
   const el = G.$('#sdk'), ov = G.$('#ov');
   const CLUES = { easy: 40, medium: 32, hard: 27, expert: 24 };
-  let level = G.get('sdk_level', 'easy'), sol, puzzle, cur, notes, sel = -1, noteMode = false, mistakes = 0, done = false, hist = [];
+  let level = G.cfg.level || G.get('sdk_level', 'easy'), sol, puzzle, cur, notes, sel = -1, noteMode = false, mistakes = 0, done = false, hist = [];
   const timer = G.timer(s => G.$('#time').textContent = G.fmt(s));
   const row = i => (i / 9) | 0, col = i => i % 9, box = i => ((row(i) / 3) | 0) * 3 + ((col(i) / 3) | 0);
   const peers = i => { const r = []; for (let j = 0; j < 81; j++) if (j !== i && (row(j) === row(i) || col(j) === col(i) || box(j) === box(i))) r.push(j); return r; };
@@ -36,13 +36,15 @@
     }
     return { s, p: g };
   }
+  const daily = G.daily.setup('sudoku', G.cfg.more);
+  if (daily) level = 'medium';
   function newGame() {
-    const { s, p } = generate(CLUES[level]);
+    const { s, p } = daily ? G.withSeed('sudoku-' + G.today(), () => generate(CLUES.medium)) : generate(CLUES[level]);
     sol = s; puzzle = p; cur = p.slice(); notes = Array.from({ length: 81 }, () => new Set());
     sel = -1; mistakes = 0; done = false; hist = []; ov.classList.add('hidden');
     timer.reset(); timer.start(); G.$('#mist').textContent = 0; setBest(); render();
   }
-  function setBest() { const b = G.get('sdk_best_' + level, null); G.$('#best').textContent = b === null ? '—' : G.fmt(b); }
+  function setBest() { const b = G.get('sdk_best_' + (daily ? 'daily' : level), null); G.$('#best').textContent = b === null ? '—' : G.fmt(b); }
   function render() {
     const sv = sel >= 0 ? cur[sel] : 0;
     for (let i = 0; i < 81; i++) {
@@ -71,8 +73,9 @@
   }
   function check() {
     if (cur.every((v, i) => v === sol[i])) {
-      done = true; timer.stop(); const t = Math.round(timer.sec()), k = 'sdk_best_' + level, b = G.get(k, null);
+      done = true; timer.stop(); const t = Math.round(timer.sec()), k = 'sdk_best_' + (daily ? 'daily' : level), b = G.get(k, null);
       const rec = b === null || t < b; if (rec) G.set(k, t); setBest(); G.confetti();
+      if (daily) { G.daily.record('sudoku', { t, mistakes }); G.$('#dailystreak').textContent = G.daily.streak('sudoku'); G.overlay(ov, 'Daily Sudoku solved! 🎉', `Time: <b>${G.fmt(t)}</b> · Mistakes: <b>${mistakes}</b>${G.daily.winText('sudoku')}`, 'Close', null); return; }
       G.overlay(ov, 'Solved! 🎉', `Time: <b>${G.fmt(t)}</b> · Mistakes: <b>${mistakes}</b>${rec ? ' · New best!' : ''}`, 'New puzzle', newGame);
     }
   }
@@ -110,4 +113,5 @@
   G.$$('button', lv).forEach(b => b.classList.toggle('on', b.dataset.v === level));
   G.seg(lv, v => { level = v; G.set('sdk_level', v); newGame(); });
   newGame();
+  if (daily) { const d = G.daily.doneToday('sudoku'); if (d) { timer.stop(); G.overlay(ov, '✅ Solved today', `You finished today's Sudoku${d.t ? ' in <b>' + G.fmt(d.t) + '</b>' : ''}.${G.daily.winText('sudoku')}`, 'Play it again', () => { timer.reset(); timer.start(); }); } }
 })();

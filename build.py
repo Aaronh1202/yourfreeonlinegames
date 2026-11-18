@@ -289,15 +289,162 @@ G["hangman"] = dict(
          ("What is a win streak?", "Your streak counts how many words in a row you've guessed correctly. It resets when you miss one, and your best streak is saved."),
          ("Is Hangman good for learning?", "Yes. It's a fun way to practice spelling and vocabulary for kids and adults.")])
 
+DAILYBAR = '<p class="dailybar">📅 <span id="dailydate"></span> · 🔥 Daily streak: <b id="dailystreak">0</b></p>'
+V = {}
+V["daily-sudoku"] = dict(base="sudoku", daily=True, cfg={"daily": True}, emoji="📅", name="Daily Sudoku", short="One new Sudoku every day",
+    title="Daily Sudoku – Free New Sudoku Puzzle Every Day",
+    desc="Play today's free daily Sudoku. A brand-new puzzle every day, the same for everyone. Keep your daily streak going with notes, hints and a timer.",
+    h1="Daily Sudoku", sub="A new puzzle every day at midnight. Solve it to keep your streak alive.",
+    content="""<h2>Today's Sudoku puzzle</h2><p>Every day there's one new <b>Daily Sudoku</b>, and everyone who plays today gets the exact same puzzle. That makes it perfect for comparing times with friends and family. A new puzzle unlocks at midnight your local time.</p>
+<p>The daily puzzle is <b>Medium</b> difficulty: challenging enough to make you think, but always solvable with logic, no guessing needed.</p>
+<h2>Build a daily streak</h2><p>Solve the puzzle every day to grow your 🔥 streak. Miss a day and it starts over. Your streak and finish times are saved on your device.</p>
+<h2>Want more?</h2><p>Finished today's puzzle? Play unlimited puzzles on our main <a href="sudoku">Sudoku</a> page, or jump straight to <a href="easy-sudoku">Easy</a>, <a href="hard-sudoku">Hard</a> or <a href="expert-sudoku">Expert Sudoku</a>.</p>""",
+    faq=[("When does the daily Sudoku change?", "A new puzzle unlocks every day at midnight in your own time zone."),
+         ("Does everyone get the same puzzle?", "Yes. Everyone playing on the same date gets the same Daily Sudoku, so you can compare times."),
+         ("How does the daily streak work?", "Each day you solve the daily puzzle adds one to your streak. If you skip a day, it resets to zero.")])
+V["daily-word-search"] = dict(base="word-search", daily=True, cfg={"daily": True}, emoji="📅", name="Daily Word Search", short="A fresh word search every day",
+    title="Daily Word Search – Free New Word Search Puzzle Every Day",
+    desc="Play today's free daily word search. A new themed puzzle every day, the same for everyone. Find all the words and keep your daily streak going.",
+    h1="Daily Word Search", sub="A new themed word search every day. Find all the words to keep your streak going.",
+    content="""<h2>Today's word search</h2><p>Every day there's a brand-new <b>Daily Word Search</b> with a surprise theme. Everyone who plays today gets the same puzzle, so you can race friends and family for the fastest time. It resets at midnight your local time.</p>
+<p>The daily puzzle has 10 hidden words on a 12×12 grid. Words run across, down and diagonally.</p>
+<h2>Keep your streak alive</h2><p>Find every word each day to build your 🔥 daily streak. Your streak and times are saved right in your browser.</p>
+<h2>Play more word games</h2><p>Want another puzzle? Play unlimited puzzles on our <a href="word-search">Word Search</a> page, or try <a href="hangman">Hangman</a>.</p>""",
+    faq=[("How often is there a new daily word search?", "Every day. A new puzzle with a new theme unlocks at midnight in your time zone."),
+         ("Can I replay today's puzzle?", "Yes. You can play it again as many times as you want, and your streak still counts once per day."),
+         ("Is the daily word search free?", "Yes. It's completely free with no sign-up.")])
+V["daily-solitaire"] = dict(base="solitaire", daily=True, cfg={"daily": True}, emoji="📅", name="Daily Solitaire", short="Today's deal, the same for everyone",
+    title="Daily Solitaire – Play Today's Free Solitaire Deal",
+    desc="Play today's Daily Solitaire. Everyone gets the same Klondike deal each day, so you can compare times. Draw 1, undo, auto-finish and a daily win streak.",
+    h1="Daily Solitaire", sub="Everyone gets the same deal today. Can you beat it?",
+    content="""<h2>Today's Solitaire deal</h2><p><b>Daily Solitaire</b> gives everyone the exact same Klondike deal each day, so you can compare times and moves with friends. A new deal arrives at midnight your local time.</p>
+<p>The daily game uses <b>Draw 1</b> rules: flip one card at a time from the stock, and recycle the deck as many times as you need. Most deals can be won with careful play, but not every one, so if today's is tough, use Undo to try another plan.</p>
+<h2>Win streaks</h2><p>Win the daily deal to add to your 🔥 streak. Skip a day and the streak resets.</p>
+<h2>Keep playing</h2><p>Play unlimited deals on the main <a href="solitaire">Solitaire</a> page, try the harder <a href="solitaire-turn-3">Solitaire Turn 3</a>, or switch it up with <a href="spider-solitaire">Spider Solitaire</a> and <a href="freecell">FreeCell</a>.</p>""",
+    faq=[("Is the Daily Solitaire the same for everyone?", "Yes. Everyone playing on the same date gets the same deal."),
+         ("Can every daily deal be won?", "Not always. About 4 out of 5 Draw 1 deals can be won, so some days are harder than others."),
+         ("When is the next daily deal?", "A new deal starts at midnight in your time zone.")])
+
+V["spider-solitaire-1-suit"] = dict(base="spider-solitaire", cfg={"suits": 1}, emoji="🕷️", name="Spider Solitaire 1 Suit", short="The easiest Spider, spades only",
+    title="Spider Solitaire 1 Suit – Play Free Online (Easy Spider)",
+    desc="Play Spider Solitaire with 1 suit free online. All spades, so it's the easiest and most relaxing way to play Spider. Undo, hints and best times included.",
+    h1="Spider Solitaire 1 Suit", sub="The easiest version of Spider. Every card is a spade, so any run can move together.",
+    content="""<h2>What is 1 suit Spider Solitaire?</h2><p>In <b>1 suit Spider</b>, all 104 cards are spades. Since every card is the same suit, any run of cards in order can be moved as a group. That makes it the friendliest version of Spider and the best place for beginners to learn.</p>
+<h2>How to win at 1 suit Spider</h2><ol><li><b>Turn over face-down cards</b> as fast as you can. They're what hold you back.</li><li><b>Empty a column early.</b> An empty column lets you rearrange long runs.</li><li><b>Make all your moves before dealing.</b> A new row covers every column.</li><li><b>Build long runs</b> from King down. Each full King-to-Ace run clears itself off the table.</li></ol>
+<p>Most 1 suit games can be won. Once you're winning regularly, step up to <a href="spider-solitaire-2-suits">Spider Solitaire 2 Suits</a>.</p>""",
+    faq=[("Is 1 suit Spider Solitaire easy?", "It's the easiest version of Spider. With careful play, most games can be won."),
+         ("How many cards are in 1 suit Spider?", "104 cards, all spades: eight complete sets of Ace to King."),
+         ("What should I play after 1 suit?", "Try 2 suits next. It adds hearts and makes planning much more important.")])
+V["spider-solitaire-2-suits"] = dict(base="spider-solitaire", cfg={"suits": 2}, emoji="🕷️", name="Spider Solitaire 2 Suits", short="Spades and hearts, a real challenge",
+    title="Spider Solitaire 2 Suits – Play Free Online",
+    desc="Play Spider Solitaire with 2 suits free online. Spades and hearts make it a real challenge. Drag or tap to move, unlimited undo, hints and best times.",
+    h1="Spider Solitaire 2 Suits", sub="Spades and hearts. Only same-suit runs move together, so plan ahead.",
+    content="""<h2>What is 2 suit Spider Solitaire?</h2><p><b>2 suit Spider</b> uses spades and hearts. You can still place any card on one rank higher, but you can only move a <b>group</b> of cards if they're all the same suit. That one rule makes it far trickier than 1 suit.</p>
+<h2>2 suit Spider strategy</h2><ol><li><b>Prefer same-suit moves.</b> When you have a choice, put a spade on a spade and a heart on a heart.</li><li><b>Mixed runs are traps.</b> A red 7 on a black 8 is fine short-term, but that stack can't move as a group later.</li><li><b>Guard your empty columns.</b> Use them to untangle mixed runs, then free them up again.</li><li><b>Use Undo to explore.</b> In 2 suit, trying a different order often turns a loss into a win.</li></ol>
+<p>Want something easier? Try <a href="spider-solitaire-1-suit">1 suit Spider</a>. Ready for the ultimate test? Play <a href="spider-solitaire-4-suits">4 suit Spider</a>.</p>""",
+    faq=[("Is 2 suit Spider hard?", "It's a big step up from 1 suit. Many experienced players win a solid share of games, but it takes planning."),
+         ("What suits are used in 2 suit Spider?", "Spades and hearts, with four of each set of Ace to King."),
+         ("Can I move a mixed-suit run?", "Not as a group. You can only move several cards together when they're in order and the same suit.")])
+V["spider-solitaire-4-suits"] = dict(base="spider-solitaire", cfg={"suits": 4}, emoji="🕷️", name="Spider Solitaire 4 Suits", short="Expert Spider with all four suits",
+    title="Spider Solitaire 4 Suits – Play Free Online (Expert)",
+    desc="Play 4 suit Spider Solitaire free online, the hardest version of Spider. All four suits, unlimited undo and hints. Can you beat it?",
+    h1="Spider Solitaire 4 Suits", sub="The expert version. Spades, hearts, diamonds and clubs make every move count.",
+    content="""<h2>The hardest Spider Solitaire</h2><p><b>4 suit Spider</b> uses all four suits, two decks' worth. Just like other versions, you can place a card on any card one rank higher, but only same-suit runs move as a group, and with four suits those runs are hard to build. Only a small share of games are won, which makes each victory special.</p>
+<h2>Tips for 4 suit Spider</h2><ol><li><b>Be patient.</b> Look at every option before each move.</li><li><b>Never waste an empty column.</b> It's your most valuable tool for sorting suits.</li><li><b>Avoid burying low cards</b> under mixed-suit stacks.</li><li><b>Use Undo heavily.</b> Even experts rewind a lot in 4 suit Spider.</li></ol>
+<p>Need a warm-up? Start with <a href="spider-solitaire-1-suit">1 suit</a> or <a href="spider-solitaire-2-suits">2 suit Spider</a>.</p>""",
+    faq=[("Can 4 suit Spider Solitaire be won?", "Yes, but it's very hard. Without undo, only a small share of games are won, even by skilled players."),
+         ("What's the best strategy for 4 suits?", "Keep columns empty when you can, build same-suit runs whenever possible, and plan several moves ahead."),
+         ("Is 4 suit Spider the same as regular Spider?", "Yes. The original Spider Solitaire uses all four suits. The 1 and 2 suit versions are easier variations.")])
+V["solitaire-turn-3"] = dict(base="solitaire", cfg={"draw": 3}, emoji="🃏", name="Solitaire Turn 3", short="Classic Klondike, three cards at a time",
+    title="Solitaire Turn 3 – Play Free Draw 3 Klondike Solitaire Online",
+    desc="Play Solitaire Turn 3 (Draw 3 Klondike) free online. Flip three cards at a time for the classic, harder version. Undo, auto-finish and best times.",
+    h1="Solitaire Turn 3", sub="Classic Klondike, flipping three cards at a time. Only the top card can be played.",
+    content="""<h2>What is Turn 3 Solitaire?</h2><p>In <b>Turn 3</b> (also called Draw 3), you flip three cards from the stock at once, but you can only play the top one. That means the cards underneath stay locked until you use the top card, so you have to plan your deck order. It's the traditional way Klondike was played and much harder than <a href="solitaire">Turn 1</a>.</p>
+<h2>Turn 3 strategy</h2><ol><li><b>Count through the deck.</b> Notice which cards show up each pass, since the order changes as you play cards from it.</li><li><b>Play a waste card to shift the deck.</b> Using one card changes which cards appear next time through.</li><li><b>Focus on the tableau first.</b> Uncovering face-down cards is usually worth more than playing from the deck.</li><li><b>Use Undo</b> to test a different line when you get stuck.</li></ol>""",
+    faq=[("Is Turn 3 Solitaire harder than Turn 1?", "Yes. Because only every third card is playable, far fewer Turn 3 games can be won."),
+         ("Can I switch back to Turn 1?", "Yes. Use the Draw 1 button above the game, or play on our main Solitaire page."),
+         ("Why is it called Turn 3?", "Because you turn over three cards from the stock at a time instead of one.")])
+V["easy-sudoku"] = dict(base="sudoku", cfg={"level": "easy"}, emoji="🧩", name="Easy Sudoku", short="Gentle puzzles for beginners",
+    title="Easy Sudoku – Play Free Easy Sudoku Puzzles Online",
+    desc="Play free easy Sudoku puzzles online, perfect for beginners. Unlimited new puzzles with about 40 starting numbers, notes, hints and mistake checking.",
+    h1="Easy Sudoku", sub="Relaxing puzzles with plenty of starting numbers. Perfect for beginners.",
+    content="""<h2>Easy Sudoku for beginners</h2><p>Our <b>easy Sudoku</b> puzzles start with about 40 numbers already filled in, so you can solve them using simple logic. Every puzzle has exactly one solution and never needs guessing.</p>
+<h2>How to solve easy Sudoku</h2><ol><li><b>Find the missing number.</b> Look for a row, column or box with only one or two empty squares.</li><li><b>Scan one number at a time.</b> Pick a number like 1 and check which boxes still need it, then see where it can go.</li><li><b>Use the highlights.</b> Tap a number and every matching number lights up, so it's easy to see where it can't go.</li></ol>
+<p>Getting fast? Move up to <a href="sudoku">Medium</a>, <a href="hard-sudoku">Hard</a> or try the <a href="daily-sudoku">Daily Sudoku</a>.</p>""",
+    faq=[("How many numbers does an easy Sudoku start with?", "About 40 of the 81 squares are already filled in."),
+         ("Are easy Sudoku puzzles good for kids?", "Yes. They're a great way for kids and beginners to learn Sudoku logic."),
+         ("How long does an easy Sudoku take?", "Most people finish in 5 to 15 minutes. With practice, you can get under 5.")])
+V["hard-sudoku"] = dict(base="sudoku", cfg={"level": "hard"}, emoji="🧩", name="Hard Sudoku", short="Tough puzzles that need real strategy",
+    title="Hard Sudoku – Play Free Hard Sudoku Puzzles Online",
+    desc="Play free hard Sudoku puzzles online. Unlimited challenging puzzles with about 27 starting numbers, notes, hints and a timer. Every puzzle has one solution.",
+    h1="Hard Sudoku", sub="Fewer clues and trickier logic. Notes are your best friend here.",
+    content="""<h2>Hard Sudoku puzzles</h2><p><b>Hard Sudoku</b> puzzles start with only about 27 numbers. You'll need more than simple scanning to solve them, but every puzzle still has exactly one solution and can be solved without guessing.</p>
+<h2>Strategies for hard Sudoku</h2><ol><li><b>Turn on Notes.</b> Write every possible number in each empty square, then erase as you go.</li><li><b>Naked pairs:</b> if two squares in a row can only be the same two numbers, remove those numbers from the rest of the row.</li><li><b>Pointing pairs:</b> if a number in a box can only go in one row, it can't go anywhere else in that row outside the box.</li><li><b>Hidden singles:</b> a number that has only one possible spot in a row, column or box goes there, even if that square has other candidates.</li></ol>
+<p>Want an even bigger challenge? Try <a href="expert-sudoku">Expert Sudoku</a>.</p>""",
+    faq=[("What makes a Sudoku hard?", "Fewer starting numbers and the need for advanced techniques like pairs and pointing to make progress."),
+         ("Do hard Sudoku puzzles need guessing?", "No. Every puzzle here has one solution that can be found with logic."),
+         ("How long does a hard Sudoku take?", "Usually 20 to 45 minutes, though experienced solvers can be much faster.")])
+V["expert-sudoku"] = dict(base="sudoku", cfg={"level": "expert"}, emoji="🧩", name="Expert Sudoku", short="The toughest puzzles we have",
+    title="Expert Sudoku – Play Free Expert Sudoku Puzzles Online",
+    desc="Play free expert Sudoku puzzles online. Our hardest puzzles, with only about 24 starting numbers. Notes, hints, undo and best times included.",
+    h1="Expert Sudoku", sub="Our hardest Sudoku. Very few clues and no easy starts.",
+    content="""<h2>Expert-level Sudoku</h2><p><b>Expert Sudoku</b> puzzles start with just about 24 numbers. That's close to the fewest clues a Sudoku can have and still have one solution (the minimum ever proven is 17). Expect to need notes and advanced techniques from the very first move.</p>
+<h2>Expert techniques</h2><ol><li><b>Fill in all candidates</b> with Notes before you start.</li><li><b>X-Wing:</b> when a number can only go in the same two columns in two different rows, it can be removed from those columns everywhere else.</li><li><b>Hidden pairs and triples:</b> look for two or three numbers that can only fit in the same two or three squares of a unit.</li><li><b>Take breaks.</b> A fresh look often reveals a move you missed.</li></ol>
+<p>Need a breather? Try <a href="hard-sudoku">Hard Sudoku</a> or the <a href="daily-sudoku">Daily Sudoku</a>.</p>""",
+    faq=[("How hard is expert Sudoku?", "Very. Expert puzzles have very few clues and usually need advanced techniques like X-Wing and hidden pairs."),
+         ("What's the fewest clues a Sudoku can have?", "17. It has been proven that no valid Sudoku with a single solution has fewer than 17 starting numbers."),
+         ("Can I use hints?", "Yes. The Hint button reveals one correct number whenever you're stuck.")])
+V["minesweeper-expert"] = dict(base="minesweeper", cfg={"level": "hard"}, emoji="💣", name="Expert Minesweeper", short="30×16 board with 99 mines",
+    title="Expert Minesweeper – Play Free Minesweeper Expert Online (99 Mines)",
+    desc="Play Expert Minesweeper free online: the classic 30×16 board with 99 mines. Safe first click, chording, flags and best times. Can you beat it?",
+    h1="Expert Minesweeper", sub="The classic expert board: 30 columns, 16 rows and 99 mines.",
+    content="""<h2>Expert Minesweeper</h2><p>The <b>Expert</b> board is the ultimate Minesweeper challenge: 480 squares hiding 99 mines. That's about one mine in every five squares, so you'll need every pattern you know and quick chording to post a good time.</p>
+<h2>Tips for Expert</h2><ol><li><b>Learn the patterns.</b> 1-2-1 and 1-2-2-1 along a wall solve themselves once you know them.</li><li><b>Chord constantly.</b> Click a number with all its mines flagged to open every neighbor at once. It's the key to fast times.</li><li><b>Work the edges</b> of open areas instead of starting new spots.</li><li><b>Guess smart.</b> If you must guess, choose squares that would open the most information.</li></ol>
+<p>Want to warm up first? Play <a href="minesweeper">Beginner or Intermediate</a>.</p>""",
+    faq=[("How many mines are on Expert Minesweeper?", "99 mines on a 30×16 board of 480 squares."),
+         ("What's a good Expert Minesweeper time?", "Under 5 minutes is great for most players. Top players finish in well under a minute."),
+         ("Can I play Expert on a phone?", "Yes, but the board is wide, so you may need to scroll sideways. Turning your phone sideways helps.")])
+V["chess-2-player"] = dict(base="chess", cfg={"mode": "pvp"}, emoji="♟️", name="Chess 2 Player", short="Play a friend on one device",
+    title="Chess 2 Player – Play Free Two Player Chess Online",
+    desc="Play 2 player chess online for free with a friend on the same device. Full chess rules with castling, en passant, promotion and check. No sign-up needed.",
+    h1="2 Player Chess", sub="Play a friend on the same phone, tablet or computer. White moves first.",
+    content="""<h2>Two player chess on one device</h2><p>Sit next to a friend and take turns. White moves first, then pass the device. The game handles every rule for you: legal moves are highlighted, check is shown, and the game spots checkmate, stalemate and draws automatically.</p>
+<h2>Quick rules refresher</h2><ul><li>Click a piece to see where it can go, then click a highlighted square.</li><li><b>Castling:</b> click your king, then the square two spaces toward the rook.</li><li><b>Promotion:</b> when a pawn reaches the last row, choose a queen, rook, bishop or knight.</li><li><b>Undo</b> takes back the last move if someone slips.</li></ul>
+<p>No one to play with? Challenge the <a href="chess">computer</a> on Easy, Medium or Hard.</p>""",
+    faq=[("Can two people play chess on one computer?", "Yes. Take turns making moves on the same device. White always moves first."),
+         ("Do I need an account to play 2 player chess?", "No. Just open the page and start playing."),
+         ("Does it check for checkmate?", "Yes. The game detects check, checkmate, stalemate and other draws automatically.")])
+V["checkers-2-player"] = dict(base="checkers", cfg={"mode": "pvp"}, emoji="🔴", name="Checkers 2 Player", short="Play a friend on one device",
+    title="Checkers 2 Player – Play Free Two Player Checkers Online",
+    desc="Play 2 player checkers online for free on the same device. Official rules with forced jumps, multi-jumps and kings. No download or sign-up needed.",
+    h1="2 Player Checkers", sub="Take turns with a friend on the same device. Red moves first.",
+    content="""<h2>Two player checkers</h2><p>Play a friend side by side on one phone, tablet or computer. Red moves first. Click a piece to see its legal moves, then click where to go. The game enforces official American checkers rules, so no arguments about forced jumps!</p>
+<h2>Rules at a glance</h2><ul><li>Pieces move diagonally forward on the dark squares.</li><li>If you can jump, you <b>must</b> jump, and keep jumping if you can.</li><li>Reach the far row to become a <b>king</b>, which can move backward too.</li><li>Win by capturing every piece or leaving your opponent with no moves.</li></ul>
+<p>Playing alone? Take on the <a href="checkers">computer</a> instead.</p>""",
+    faq=[("Can two people play checkers on one device?", "Yes. Choose 2 Players and take turns on the same screen."),
+         ("Who goes first in checkers?", "Red moves first."),
+         ("Are jumps required?", "Yes. Under official rules, you must take a jump when one is available.")])
+V["tic-tac-toe-2-player"] = dict(base="tic-tac-toe", cfg={"mode": "pvp"}, emoji="⭕", name="Tic Tac Toe 2 Player", short="X vs O with a friend",
+    title="Tic Tac Toe 2 Player – Play Free Two Player Tic Tac Toe Online",
+    desc="Play 2 player Tic Tac Toe online for free with a friend on the same device. Score keeps track of X wins, O wins and draws. Players take turns going first.",
+    h1="2 Player Tic Tac Toe", sub="X versus O on the same device. First to three in a row wins.",
+    content="""<h2>Tic Tac Toe with a friend</h2><p>Grab a friend and take turns tapping squares. X goes first in the first round, and the starting player switches every game so it stays fair. The scoreboard keeps track of X wins, O wins and draws.</p>
+<h2>Tips to beat your friend</h2><ol><li><b>Take a corner</b> when you go first.</li><li><b>Set up a fork</b>, two ways to win at once.</li><li><b>Always block</b> two in a row.</li></ol>
+<p>Want a challenge? Try to beat our <a href="tic-tac-toe">unbeatable computer</a>.</p>""",
+    faq=[("How do you play Tic Tac Toe with 2 players?", "Take turns placing X and O on the same device. The first to get three in a row wins."),
+         ("Who goes first?", "X starts the first game, then the first player switches every game."),
+         ("Does it keep score?", "Yes. X wins, O wins and draws are tracked until you reset the score.")])
+DAILY = ["daily-sudoku", "daily-word-search", "daily-solitaire"]
+
 ORDER = ["solitaire", "spider-solitaire", "freecell", "pyramid-solitaire", "mahjong", "chess", "checkers", "snake-game", "minesweeper", "2048", "sudoku", "word-search", "hangman", "tic-tac-toe", "dinosaur-game"]
 NAV = ["solitaire", "spider-solitaire", "mahjong", "chess", "snake-game", "sudoku", "minesweeper"]
 
 ICON = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%23ffcc33'/><stop offset='1' stop-color='%23ff5c8a'/></linearGradient></defs><rect width='100' height='100' rx='26' fill='url(%23g)'/><text x='50' y='70' font-size='56' text-anchor='middle'>🎮</text></svg>"
 LOGO = '<a class="logo" href="./"><span class="mark">🎮</span><span>YourFree<em>OnlineGames</em></span></a>'
 
-def page(slug, title, desc, body, faq=None, ld_extra=None, cur=None):
+def page(slug, title, desc, body, faq=None, ld_extra=None, cur=None, cfg=None):
     url = DOMAIN + "/" + ("" if slug == "index" else slug)
-    nav = "".join(f'<a href="{s}"{" class=on" if s == cur else ""}>{G[s]["emoji"]} {G[s]["name"]}</a>' for s in NAV) + '<a href="./#games">🎮 All games</a>'
+    nav = "".join(f'<a href="{s}"{" class=on" if s == cur else ""}>{G[s]["emoji"]} {G[s]["name"]}</a>' for s in NAV) + '<a href="./#daily">📅 Daily</a><a href="./#games">🎮 All games</a>'
     ld = [{"@context": "https://schema.org", "@type": "WebSite", "name": SITE, "url": DOMAIN + "/", "publisher": {"@type": "Person", "name": AUTHOR}}]
     if ld_extra: ld.append(ld_extra)
     if faq: ld.append({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faq]})
@@ -330,11 +477,16 @@ def card(s):
     g = G[s]
     return f'<a class="card" href="{s}" style="--c:{g["color"]}"><span class="play">▶ PLAY</span><div class="art">{g["emoji"]}</div><div class="txt"><h3>{g["name"]}</h3><p>{g["short"]}</p></div></a>'
 
+def dcard(v):
+    d = V[v]
+    return f'<a class="card" href="{v}" style="--c:{G[d["base"]]["color"]}"><span class="play">NEW TODAY</span><div class="art">{G[d["base"]]["emoji"]}</div><div class="txt"><h3>{d["name"]}</h3><p>{d["short"]}</p></div></a>'
 pages = {}
 home = f'''<section class="hero"><h1>Play <span>Free Online Games</span></h1><p>The classics you love, ready to play instantly. No downloads, no sign-up and no limits. Works on your phone, tablet and computer.</p></section>
-<div class="cards" id="games">{"".join(card(s) for s in ORDER)}</div>
+<h2 class="sectionh" id="daily">📅 Daily puzzles</h2><div class="cards daily">{"".join(dcard(v) for v in DAILY)}</div>
+<h2 class="sectionh" id="games">🎮 All games</h2><div class="cards">{"".join(card(s) for s in ORDER)}</div>
 <div class="content"><h2>Free games, right in your browser</h2><p>{SITE} brings together the most popular classic games in one fast, clean place. Every game loads in seconds, saves your best scores, and works just as well with a touchscreen as with a mouse and keyboard.</p>
 <ul><li><b>Card games:</b> <a href="solitaire">Klondike Solitaire</a>, <a href="spider-solitaire">Spider Solitaire</a>, <a href="freecell">FreeCell</a> and <a href="pyramid-solitaire">Pyramid Solitaire</a>.</li><li><b>Tile games:</b> <a href="mahjong">Mahjong Solitaire</a>.</li><li><b>Board games:</b> <a href="chess">Chess</a>, <a href="checkers">Checkers</a> and <a href="tic-tac-toe">Tic Tac Toe</a>.</li><li><b>Word games:</b> <a href="word-search">Word Search</a> and <a href="hangman">Hangman</a>.</li><li><b>Puzzle games:</b> <a href="sudoku">Sudoku</a>, <a href="2048">2048</a> and <a href="minesweeper">Minesweeper</a>.</li><li><b>Arcade games:</b> the classic <a href="snake-game">Snake game</a> and the <a href="dinosaur-game">Dinosaur game</a>.</li></ul>
+<h2>Popular ways to play</h2><div class="more">{"".join(f'<a href="{v}"><span>{V[v]["emoji"]}</span>{V[v]["name"]}</a>' for v in V if v not in DAILY)}</div>
 <p>New games are added regularly, so check back soon.</p></div>'''
 home_faq = [("Are these games really free?", "Yes. Every game is free to play with no download, no account and no time limits."),
             ("Do the games work on mobile?", "Yes. Every game supports touch controls like tapping and swiping, and the layout adapts to your screen."),
@@ -343,16 +495,31 @@ pages["index"] = page("index", "Free Online Games – Play Solitaire, Spider Sol
     "Play 15 free online games instantly: Solitaire, Spider Solitaire, FreeCell, Mahjong, Chess, Checkers, Sudoku, Snake and more. No download or sign-up. Works on phone, tablet and computer.",
     home + '<div class="content"><h2>Frequently asked questions</h2><div class="faq">' + "".join(f"<details><summary>{q}</summary><p>{a}</p></details>" for q, a in home_faq) + "</div></div>", faq=home_faq)
 
-for s in ORDER:
-    g = G[s]
-    more = '<h2>More free games</h2><div class="more">' + "".join(f'<a href="{o}"><span>{G[o]["emoji"]}</span>{G[o]["name"]}</a>' for o in ORDER if o != s) + "</div>"
+PREVIEW = os.environ.get("PREVIEW")
+def variants_of(base): return [v for v in V if V[v]["base"] == base]
+def game_page(slug, g, base_slug, cfg=None, daily=False):
+    others = [o for o in ORDER if o != base_slug]
+    ways = variants_of(base_slug)
+    waysh = ""
+    if ways or slug != base_slug:
+        links = ([(base_slug, G[base_slug])] if slug != base_slug else []) + [(v, V[v]) for v in ways if v != slug]
+        waysh = '<h2>More ways to play</h2><div class="more">' + "".join(f'<a href="{v}"><span>{d["emoji"]}</span>{d["name"]}</a>' for v, d in links) + "</div>"
+    more = waysh + '<h2>More free games</h2><div class="more">' + "".join(f'<a href="{o}"><span>{G[o]["emoji"]}</span>{G[o]["name"]}</a>' for o in others) + "</div>"
     faqhtml = '<h2>Frequently asked questions</h2><div class="faq">' + "".join(f"<details><summary>{q}</summary><p>{a}</p></details>" for q, a in g["faq"]) + "</div>"
+    gm = G[base_slug]["game"]
+    if daily: gm = DAILYBAR + gm
+    cfgjs = ""
+    if cfg:
+        c = dict(cfg); c["more"] = base_slug + (".html" if PREVIEW else "")
+        cfgjs = f"<script>window.GAMECFG={json.dumps(c)}</script>"
     body = f'''<div class="gamehead"><div><h1>{g["emoji"]} {g["h1"]}</h1><p>{g["sub"]}</p></div></div>
-<div class="panel">{g["game"]}</div>
+<div class="panel">{gm}</div>
 <article class="content">{g["content"]}{faqhtml}{more}<p class="hint" style="text-align:left;margin-top:30px">Updated {UPDATED} by {AUTHOR}</p></article>
-<script src="common.js"></script><script src="{g["js"]}"></script>'''
-    ld = {"@context": "https://schema.org", "@type": "VideoGame", "name": g["name"], "url": f"{DOMAIN}/{s}", "description": g["desc"], "genre": "Casual", "gamePlatform": ["Web browser", "Mobile", "Desktop"], "applicationCategory": "Game", "operatingSystem": "Any", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "author": {"@type": "Person", "name": AUTHOR}}
-    pages[s] = page(s, g["title"], g["desc"], body, faq=g["faq"], ld_extra=ld, cur=s)
+{cfgjs}<script src="common.js"></script><script src="{G[base_slug]["js"]}"></script>'''
+    ld = {"@context": "https://schema.org", "@type": "VideoGame", "name": g["name"], "url": f"{DOMAIN}/{slug}", "description": g["desc"], "genre": "Casual", "gamePlatform": ["Web browser", "Mobile", "Desktop"], "applicationCategory": "Game", "operatingSystem": "Any", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "author": {"@type": "Person", "name": AUTHOR}}
+    return page(slug, g["title"], g["desc"], body, faq=g["faq"], ld_extra=ld, cur=base_slug)
+for s in ORDER: pages[s] = game_page(s, G[s], s)
+for v, d in V.items(): pages[v] = game_page(v, d, d["base"], cfg=d["cfg"], daily=d.get("daily"))
 
 contact = f"<p>Questions, ideas or a game you'd like to see? Email <a href=\"mailto:{CONTACT}\">{CONTACT}</a>.</p>" if CONTACT else ""
 pages["about"] = page("about", f"About {SITE}", f"About {SITE}, a free collection of classic online games made by {AUTHOR}.",
@@ -367,7 +534,6 @@ pages["privacy"] = page("privacy", f"Privacy Policy – {SITE}", f"Privacy polic
 <h2>Analytics</h2><p>We may use privacy-friendly analytics to count page visits. This data is aggregated and is not used to identify you.</p>
 <h2>Children</h2><p>Our games are suitable for all ages. We don't knowingly collect personal information from anyone.</p>{contact}</article>''')
 
-PREVIEW = os.environ.get("PREVIEW")
 for slug, html in pages.items():
     if PREVIEW:
         html = re.sub(r'href="(%s)"' % "|".join(re.escape(s) for s in list(pages) if s != "index"), r'href="\1.html"', html)

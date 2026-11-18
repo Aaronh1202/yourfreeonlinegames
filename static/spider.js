@@ -1,7 +1,7 @@
 (() => {
   const B = G.$('#sp'), ov = G.$('#ov');
   const SUITS = ['♠', '♥', '♦', '♣'], RANKS = ['', 'A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
-  let suits = G.get('sp_suits', 1), st, hist = [], moves = 0, score = 500, won = false, L = {}, els = {}, slots = [];
+  let suits = G.cfg.suits || G.get('sp_suits', 1), st, hist = [], moves = 0, score = 500, won = false, L = {}, els = {}, slots = [];
   const timer = G.timer(s => G.$('#time').textContent = G.fmt(s));
   const top = a => a[a.length - 1];
 

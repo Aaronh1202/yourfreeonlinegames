@@ -57,3 +57,37 @@ const G = {
     const b = G.$('button', el); if (b) b.onclick = e => { e.stopPropagation(); el.classList.add('hidden'); cb && cb(); };
   }
 };
+
+// ---- page config, seeded randomness and daily puzzles ----
+G.cfg = window.GAMECFG || {};
+G.today = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
+G.prettyDate = () => new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+G.withSeed = (seed, fn) => {
+  let h = 1779033703 ^ seed.length;
+  for (let i = 0; i < seed.length; i++) { h = Math.imul(h ^ seed.charCodeAt(i), 3432918353); h = h << 13 | h >>> 19; }
+  let a = h >>> 0;
+  const rnd = () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+  const orig = Math.random; Math.random = rnd;
+  try { return fn(); } finally { Math.random = orig; }
+};
+G.daily = {
+  key: g => 'daily_' + g,
+  record(g, info) { const k = G.daily.key(g), d = G.get(k, {}); if (!d[G.today()]) d[G.today()] = info || true; const keys = Object.keys(d).sort().slice(-90); const out = {}; keys.forEach(x => out[x] = d[x]); G.set(k, out); },
+  doneToday(g) { return G.get(G.daily.key(g), {})[G.today()] || null; },
+  streak(g) {
+    const d = G.get(G.daily.key(g), {}); let n = 0; const day = new Date();
+    if (!d[G.today()]) day.setDate(day.getDate() - 1);
+    for (;;) { const k = day.getFullYear() + '-' + String(day.getMonth() + 1).padStart(2, '0') + '-' + String(day.getDate()).padStart(2, '0'); if (!d[k]) break; n++; day.setDate(day.getDate() - 1); }
+    return n;
+  },
+  // set up the page chrome for a daily game; returns true when daily
+  setup(g, more) {
+    if (!G.cfg.daily) return false;
+    ['#level', '#drawmode', '#theme', '#suits'].forEach(s => { const e = G.$(s); if (e) e.classList.add('hidden'); });
+    const nb = G.$('#new'); if (nb) { const a = document.createElement('a'); a.className = 'btn primary'; a.href = more; a.textContent = 'More puzzles ➜'; a.style.textDecoration = 'none'; nb.classList.add('hidden'); nb.after(a); }
+    const s = G.$('#dailystreak'); if (s) s.textContent = G.daily.streak(g);
+    const dt = G.$('#dailydate'); if (dt) dt.textContent = G.prettyDate();
+    return true;
+  },
+  winText(g) { const n = G.daily.streak(g); return `<br>🔥 Daily streak: <b>${n} day${n === 1 ? '' : 's'}</b><br><span style="font-size:14px">A new puzzle unlocks at midnight.</span>`; }
+};

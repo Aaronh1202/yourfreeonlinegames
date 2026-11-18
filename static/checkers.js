@@ -1,7 +1,7 @@
 (() => {
   // board: 64 squares, 1=red man, 2=red king, -1=black man, -2=black king. Red (player) starts at bottom and moves up.
   const el = G.$('#ck'), ov = G.$('#ov');
-  let b, turn, sel = null, prefix = [], legal = [], mode = G.get('ck_mode', 'cpu'), level = G.get('ck_level', 'medium'), hist = [], quiet = 0, thinking = false, over = false, lastMove = null;
+  let b, turn, sel = null, prefix = [], legal = [], mode = G.cfg.mode || G.get('ck_mode', 'cpu'), level = G.get('ck_level', 'medium'), hist = [], quiet = 0, thinking = false, over = false, lastMove = null;
   const rc = i => [(i / 8) | 0, i % 8], idx = (r, c) => r * 8 + c, on = (r, c) => r >= 0 && r < 8 && c >= 0 && c < 8;
   const sideOf = v => Math.sign(v);
 

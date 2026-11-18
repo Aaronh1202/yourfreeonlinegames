@@ -215,3 +215,5 @@ select.sel{background:var(--bg2);color:var(--text);border:1px solid var(--line);
 .ttt{grid-template-rows:repeat(3,1fr)}.tc{min-height:0;min-width:0;overflow:hidden;padding:0}
 .chess{grid-template-rows:repeat(8,1fr)}.cq{min-height:0;min-width:0;overflow:hidden}
 .ck{grid-template-rows:repeat(8,1fr)}.ck .sq{min-height:0}
+.sectionh{font-size:22px;margin:26px 0 0;letter-spacing:-.3px}
+.dailybar{margin:0 0 12px;padding:10px 14px;border-radius:12px;background:linear-gradient(90deg,rgba(255,204,51,.16),rgba(255,92,138,.14));border:1px solid rgba(255,204,51,.35);font-weight:700;text-align:center}

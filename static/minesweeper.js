@@ -1,7 +1,7 @@
 (() => {
   const LV = { easy: [9, 9, 10], medium: [16, 16, 40], hard: [30, 16, 99] };
   const el = G.$('#ms'), ov = G.$('#ov');
-  let level = G.get('ms_level', 'easy'), W, H, M, cells, started, over, flags, opened, flagMode = false;
+  let level = G.cfg.level || G.get('ms_level', 'easy'), W, H, M, cells, started, over, flags, opened, flagMode = false;
   const timer = G.timer(s => G.$('#time').textContent = G.fmt(s));
 
   function sizeCells() {

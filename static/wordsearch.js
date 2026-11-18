@@ -14,10 +14,13 @@
   const LV = { easy: { n: 10, w: 8, dirs: [[0, 1], [1, 0]] }, medium: { n: 12, w: 10, dirs: [[0, 1], [1, 0], [1, 1], [-1, 1]] }, hard: { n: 14, w: 13, dirs: [[0, 1], [1, 0], [1, 1], [-1, 1], [0, -1], [-1, 0], [-1, -1], [1, -1]] } };
   const COLORS = ['#ff6b8b', '#ffb347', '#ffd84d', '#6ee7a8', '#5ec8ff', '#a78bfa', '#f472b6', '#34d399', '#fb923c', '#60a5fa', '#c084fc', '#facc15', '#2dd4bf', '#f87171'];
   const el = G.$('#ws'), list = G.$('#words'), ov = G.$('#ov');
-  let level = G.get('ws_level', 'medium'), theme = 'random', N, grid, words, found, sel = null, cur = [];
+  let level = G.cfg.level || G.get('ws_level', 'medium'), theme = 'random', N, grid, words, found, sel = null, cur = [];
   const timer = G.timer(s => G.$('#time').textContent = G.fmt(s));
 
-  function generate() {
+  const daily = G.daily.setup('wordsearch', G.cfg.more);
+  if (daily) level = 'medium';
+  function generate() { if (daily) return G.withSeed('ws-' + G.today(), gen); return gen(); }
+  function gen() {
     const cfg = LV[level]; N = cfg.n;
     const names = Object.keys(THEMES), th = theme === 'random' ? names[G.rnd(names.length)] : theme;
     G.$('#themename').textContent = th;
@@ -80,10 +83,11 @@
     paint();
   });
   function win() {
-    timer.stop(); const t = Math.round(timer.sec()), k = 'ws_best_' + level, b = G.get(k, null), rec = b === null || t < b; if (rec) G.set(k, t); setBest(); G.confetti();
+    timer.stop(); const t = Math.round(timer.sec()), k = 'ws_best_' + (daily ? 'daily' : level), b = G.get(k, null), rec = b === null || t < b; if (rec) G.set(k, t); setBest(); G.confetti();
+    if (daily) { G.daily.record('wordsearch', { t }); G.$('#dailystreak').textContent = G.daily.streak('wordsearch'); G.overlay(ov, 'Daily Word Search done! 🎉', `Time: <b>${G.fmt(t)}</b>${G.daily.winText('wordsearch')}`, 'Close', null); return; }
     G.overlay(ov, 'All words found! 🎉', `Time: <b>${G.fmt(t)}</b>${rec ? ' · New best!' : ''}`, 'New puzzle', generate);
   }
-  function setBest() { const b = G.get('ws_best_' + level, null); G.$('#best').textContent = b === null ? '—' : G.fmt(b); }
+  function setBest() { const b = G.get('ws_best_' + (daily ? 'daily' : level), null); G.$('#best').textContent = b === null ? '—' : G.fmt(b); }
   G.$('#hint').onclick = () => { const left = words.filter(x => !found.has(x.w)); if (!left.length) return; const x = left[G.rnd(left.length)]; const d = el.children[x.cells[0]]; d.animate([{ transform: 'scale(1)', background: '#ffcc33' }, { transform: 'scale(1.35)', background: '#ffcc33' }, { transform: 'scale(1)' }], { duration: 700, iterations: 2 }); };
   G.$('#new').onclick = generate;
   const th = G.$('#theme'); th.innerHTML = '<option value="random">🎲 Random theme</option>' + Object.keys(THEMES).map(t => `<option>${t}</option>`).join('');
@@ -91,4 +95,5 @@
   const lv = G.$('#level'); G.$$('button', lv).forEach(x => x.classList.toggle('on', x.dataset.v === level));
   G.seg(lv, v => { level = v; G.set('ws_level', v); setBest(); generate(); });
   setBest(); generate();
+  if (daily) { const d = G.daily.doneToday('wordsearch'); if (d) G.overlay(ov, '✅ Done for today', `You found every word in today's puzzle${d.t ? ' in <b>' + G.fmt(d.t) + '</b>' : ''}.${G.daily.winText('wordsearch')}`, 'Play it again', null); }
 })();

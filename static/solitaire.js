@@ -2,7 +2,7 @@
   const B = G.$('#sol'), ov = G.$('#ov');
   const SUITS = ['♠', '♥', '♦', '♣'], RANKS = ['', 'A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
   const red = c => c.s === 1 || c.s === 2;
-  let st, hist = [], drawN = G.get('sol_draw', 1), moves = 0, score = 0, won = false, L = {}, els = {}, auto = false;
+  let st, hist = [], drawN = G.cfg.draw || G.get('sol_draw', 1), moves = 0, score = 0, won = false, L = {}, els = {}, auto = false;
   const timer = G.timer(s => G.$('#time').textContent = G.fmt(s));
 
   // ----- card elements -----
@@ -17,9 +17,11 @@
   const stockSlot = mkSlot('↻'), fSlots = [0, 1, 2, 3].map(i => mkSlot(SUITS[i])), tSlots = [0, 1, 2, 3, 4, 5, 6].map(() => mkSlot(''));
   Object.values(els).forEach(e => B.appendChild(e));
 
+  const daily = G.daily.setup('solitaire', G.cfg.more);
+  if (daily) drawN = 1;
   function deal() {
     const deck = []; for (let s = 0; s < 4; s++) for (let r = 1; r <= 13; r++) deck.push({ s, r, id: s * 13 + r, up: false });
-    G.shuffle(deck);
+    if (daily) G.withSeed('sol-' + G.today(), () => G.shuffle(deck)); else G.shuffle(deck);
     st = { stock: [], waste: [], found: [[], [], [], []], tab: [[], [], [], [], [], [], []] };
     for (let i = 0; i < 7; i++) for (let j = i; j < 7; j++) { const c = deck.pop(); c.up = i === j; st.tab[j].push(c); }
     st.stock = deck; hist = []; moves = 0; score = 0; won = false; auto = false;
@@ -122,12 +124,13 @@
   }
   function win() {
     won = true; timer.stop(); const t = Math.round(timer.sec());
-    const k = 'sol_best_' + drawN, b = G.get(k, null), rec = b === null || t < b; if (rec) G.set(k, t);
+    const k = 'sol_best_' + (daily ? 'daily' : drawN), b = G.get(k, null), rec = b === null || t < b; if (rec) G.set(k, t);
     G.set('sol_wins', G.get('sol_wins', 0) + 1); setBest();
     G.confetti();
+    if (daily) { G.daily.record('solitaire', { t, moves }); G.$('#dailystreak').textContent = G.daily.streak('solitaire'); G.overlay(ov, 'Daily Solitaire won! 🎉', `Time: <b>${G.fmt(t)}</b> · Moves: <b>${moves}</b>${G.daily.winText('solitaire')}`, 'Close', null); return; }
     G.overlay(ov, 'You won! 🎉', `Time: <b>${G.fmt(t)}</b> · Moves: <b>${moves}</b> · Score: <b>${score}</b>${rec ? '<br>New best time!' : ''}`, 'Deal again', deal);
   }
-  function setBest() { const b = G.get('sol_best_' + drawN, null); G.$('#best').textContent = b === null ? '—' : G.fmt(b); }
+  function setBest() { const b = G.get('sol_best_' + (daily ? 'daily' : drawN), null); G.$('#best').textContent = b === null ? '—' : G.fmt(b); }
 
   // ----- input -----
   function locate(id) {
@@ -193,4 +196,5 @@
   G.seg(dm, v => { drawN = +v; G.set('sol_draw', drawN); setBest(); deal(); });
   addEventListener('resize', () => { layout(); render(); });
   setBest(); deal();
+  if (daily) { const d = G.daily.doneToday('solitaire'); if (d) G.overlay(ov, '✅ Won today', `You beat today's deal${d.t ? ' in <b>' + G.fmt(d.t) + '</b>' : ''}.${G.daily.winText('solitaire')}`, 'Play it again', null); }
 })();

@@ -1,7 +1,7 @@
 (() => {
   const el = G.$('#ttt'), msg = G.$('#turn');
   const LINES = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
-  let b, turn, over, mode = G.get('ttt_mode', 'cpu'), level = G.get('ttt_level', 'hard'), first = 'X', tally = G.get('ttt_tally', { x: 0, o: 0, d: 0 });
+  let b, turn, over, mode = G.cfg.mode || G.get('ttt_mode', 'cpu'), level = G.get('ttt_level', 'hard'), first = 'X', tally = G.get('ttt_tally', { x: 0, o: 0, d: 0 });
   const winner = bd => { for (const l of LINES) if (bd[l[0]] && bd[l[0]] === bd[l[1]] && bd[l[1]] === bd[l[2]]) return { p: bd[l[0]], l }; return bd.every(Boolean) ? { p: 'D' } : null; };
   function mm(bd, me, ai) {
     const w = winner(bd); if (w) return w.p === ai ? 10 : w.p === 'D' ? 0 : -10;
