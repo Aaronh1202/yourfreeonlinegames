@@ -121,7 +121,45 @@ G["dinosaur-game"] = dict(
          ("Is my best score saved?", "Yes. Your high score is saved in your browser."),
          ("Why does the game get faster?", "Speed goes up the farther you run, which makes every run harder the longer you last.")])
 
-ORDER = ["solitaire", "snake-game", "minesweeper", "2048", "sudoku", "dinosaur-game"]
+
+G["mahjong"] = dict(
+    emoji="🀄", color="#1e8a6e", name="Mahjong", short="Match free tiles to clear the board",
+    title="Mahjong – Play Free Mahjong Solitaire Online (No Download)",
+    desc="Play free Mahjong Solitaire online. Match pairs of free tiles to clear all 144 tiles. Every deal is solvable, with hints, shuffle, undo and a timer. Works on any device.",
+    h1="Mahjong Solitaire", sub="Match pairs of identical free tiles until the board is clear. Every deal can be solved.",
+    js="mahjong.js",
+    game=f'''<div class="bar">{pills(("left","Tiles left","144"),("pairs","Moves","0"),("time","Time","0:00"),("best","Best","—"))}<div class="grow"></div><button class="btn" id="hint">💡 Hint</button><button class="btn" id="shuffle">🔀 Shuffle</button><button class="btn" id="undo">↶ Undo</button><button class="btn primary" id="new">New game</button></div>
+<div class="stage"><div id="mj"></div>{OV}</div>
+<p class="hint">Click two matching free tiles · Press H for a hint · Ctrl+Z to undo</p>''',
+    content="""<h2>How to play Mahjong Solitaire</h2><p>The goal is to clear all 144 tiles by removing them in matching pairs. You can only pick tiles that are <b>free</b>, which means:</p>
+<ul><li>No tile is sitting on top of it, and</li><li>It has an open side on the <b>left or right</b>.</li></ul><p>Free tiles look bright. Blocked tiles look darker. Click one free tile, then a matching free tile, and both disappear.</p>
+<h2>Which tiles match?</h2><ul><li><b>Dots, Bamboo and Characters:</b> match the same suit and number (like 5 Dots with 5 Dots).</li><li><b>Winds and Dragons:</b> match the exact same tile.</li><li><b>Flowers</b> (🌸🌼🌺🌷) match <b>any</b> other flower, and <b>Seasons</b> (🌱☀️🍂❄️) match any other season.</li></ul>
+<h2>Mahjong strategy tips</h2><ol><li><b>Clear the top and the long rows first.</b> Tiles stacked high and at the ends of long rows block the most others.</li><li><b>When all four of a kind are free</b>, remove them all. There's no risk.</li><li><b>Think before matching</b> when only 3 of a kind are free. Pick the pair that unlocks more tiles.</li><li><b>Stuck?</b> Use Hint, Undo, or Shuffle to mix up the tiles that are left.</li></ol>
+<h2>Is this real Mahjong?</h2><p>This is <b>Mahjong Solitaire</b>, the single-player tile-matching game most people mean when they search for Mahjong online. Traditional Mahjong is a four-player game with very different rules.</p>""",
+    faq=[("Is every Mahjong game winnable?", "Yes. Every deal is generated so it can be fully cleared. If you get stuck it's because of the order you picked, so try Undo or Shuffle."),
+         ("What is a free tile?", "A tile with nothing on top of it and an open side on its left or right. Free tiles are bright, and blocked tiles are darker."),
+         ("Do flowers and seasons match?", "Any flower matches any other flower, and any season matches any other season, even though the pictures are different."),
+         ("Can I play Mahjong on my phone?", "Yes. Just tap the tiles. Turning your phone sideways gives you bigger tiles.")])
+
+G["checkers"] = dict(
+    emoji="🔴", color="#c0392b", name="Checkers", short="Beat the computer or a friend",
+    title="Checkers – Play Free Checkers Online vs Computer or 2 Player",
+    desc="Play free checkers online against the computer (easy, medium or hard) or with a friend on the same device. Official rules with forced jumps, multi-jumps and kings.",
+    h1="Checkers", sub="Play against the computer or a friend. Jump your opponent's pieces and get kings to win.",
+    js="checkers.js",
+    game=f'''<div class="bar">{pills(("red","Red","12"),("black","Black","12"),("wins","Wins","0"),("losses","Losses","0"))}<div class="grow"></div>{seg("mode",[("cpu","vs Computer"),("pvp","2 Players")],"Mode")}{seg("level",[("easy","Easy"),("medium","Medium"),("hard","Hard")],"Difficulty")}<button class="btn" id="undo">↶ Undo</button><button class="btn primary" id="new">New game</button></div>
+<p class="ckstatus" id="turn">Your turn (red)</p>
+<div class="stage"><div class="ck" id="ck"></div>{OV}</div>
+<p class="hint">Click a piece, then click where to move it · Esc to cancel · Ctrl+Z to undo</p>''',
+    content="""<h2>How to play Checkers</h2><p>Each player starts with 12 pieces on the dark squares. You play <b>red</b> and move first. Pieces move <b>diagonally forward</b> one square at a time.</p>
+<ul><li><b>Jumping:</b> if an opponent's piece is diagonally next to yours with an empty square behind it, jump over it to capture it.</li><li><b>Jumps are required:</b> if you can jump, you must. If you can keep jumping after landing, you must keep going (a multi-jump).</li><li><b>Kings:</b> reach the far side of the board and your piece becomes a king ♛. Kings can move and jump backward too.</li><li><b>Winning:</b> capture all your opponent's pieces, or leave them with no legal moves.</li></ul>
+<h2>Checkers strategy</h2><ol><li><b>Control the center.</b> Pieces in the middle have more options and are harder to trap.</li><li><b>Keep your back row</b> filled as long as you can. It stops your opponent from getting kings.</li><li><b>Move in groups.</b> Pieces that back each other up can't be jumped easily.</li><li><b>Use forced jumps.</b> Because jumping is required, you can offer one piece to set up a double jump of your own.</li><li><b>Trade when ahead.</b> If you have more pieces, even trades bring you closer to winning.</li></ol>""",
+    faq=[("Do I have to jump in checkers?", "Yes. Under official American checkers rules, if a jump is available you must take it, and you must finish every jump in a multi-jump."),
+         ("How hard is the computer?", "Easy makes mistakes on purpose, Medium thinks a few moves ahead, and Hard looks six moves deep, so it's a real challenge."),
+         ("Can two people play on one device?", "Yes. Pick 2 Players and take turns on the same phone, tablet or computer."),
+         ("Can a regular piece move backward?", "No. Only kings can move backward. Regular pieces move and jump forward only.")])
+
+ORDER = ["solitaire", "mahjong", "snake-game", "minesweeper", "2048", "sudoku", "checkers", "dinosaur-game"]
 
 ICON = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%23ffcc33'/><stop offset='1' stop-color='%23ff5c8a'/></linearGradient></defs><rect width='100' height='100' rx='26' fill='url(%23g)'/><text x='50' y='70' font-size='56' text-anchor='middle'>🎮</text></svg>"
 LOGO = '<a class="logo" href="./"><span class="mark">🎮</span><span>YourFree<em>OnlineGames</em></span></a>'
@@ -165,13 +203,13 @@ pages = {}
 home = f'''<section class="hero"><h1>Play <span>Free Online Games</span></h1><p>The classics you love, ready to play instantly. No downloads, no sign-up and no limits. Works on your phone, tablet and computer.</p></section>
 <div class="cards">{"".join(card(s) for s in ORDER)}</div>
 <div class="content"><h2>Free games, right in your browser</h2><p>{SITE} brings together the most popular classic games in one fast, clean place. Every game loads in seconds, saves your best scores, and works just as well with a touchscreen as with a mouse and keyboard.</p>
-<ul><li><b>Card games:</b> <a href="solitaire">Klondike Solitaire</a> in Draw 1 or Draw 3.</li><li><b>Puzzle games:</b> <a href="sudoku">Sudoku</a>, <a href="2048">2048</a> and <a href="minesweeper">Minesweeper</a>.</li><li><b>Arcade games:</b> the classic <a href="snake-game">Snake game</a> and the <a href="dinosaur-game">Dinosaur game</a>.</li></ul>
+<ul><li><b>Card & tile games:</b> <a href="solitaire">Klondike Solitaire</a> and <a href="mahjong">Mahjong Solitaire</a>.</li><li><b>Board games:</b> <a href="checkers">Checkers</a> against the computer or a friend.</li><li><b>Puzzle games:</b> <a href="sudoku">Sudoku</a>, <a href="2048">2048</a> and <a href="minesweeper">Minesweeper</a>.</li><li><b>Arcade games:</b> the classic <a href="snake-game">Snake game</a> and the <a href="dinosaur-game">Dinosaur game</a>.</li></ul>
 <p>New games are added regularly, so check back soon.</p></div>'''
 home_faq = [("Are these games really free?", "Yes. Every game is free to play with no download, no account and no time limits."),
             ("Do the games work on mobile?", "Yes. Every game supports touch controls like tapping and swiping, and the layout adapts to your screen."),
             ("Do I need to download anything?", "No. All the games run instantly in your web browser.")]
-pages["index"] = page("index", "Free Online Games – Play Solitaire, Snake, Sudoku & More (No Download)",
-    "Play free online games instantly: Solitaire, Snake, Minesweeper, 2048, Sudoku and the Dinosaur game. No download or sign-up. Works on phone, tablet and computer.",
+pages["index"] = page("index", "Free Online Games – Play Solitaire, Mahjong, Checkers & More (No Download)",
+    "Play free online games instantly: Solitaire, Mahjong, Checkers, Snake, Minesweeper, 2048, Sudoku and the Dinosaur game. No download or sign-up. Works on phone, tablet and computer.",
     home + '<div class="content"><h2>Frequently asked questions</h2><div class="faq">' + "".join(f"<details><summary>{q}</summary><p>{a}</p></details>" for q, a in home_faq) + "</div></div>", faq=home_faq)
 
 for s in ORDER:
