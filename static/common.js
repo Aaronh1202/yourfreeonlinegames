@@ -83,6 +83,8 @@ G.daily = {
   // set up the page chrome for a daily game; returns true when daily
   setup(g, more) {
     if (!G.cfg.daily) return false;
+    // new puzzle at local midnight, even if the page stays open
+    const d0 = G.today(); setInterval(() => { if (G.today() !== d0) location.reload(); }, 30000);
     ['#level', '#drawmode', '#theme', '#suits'].forEach(s => { const e = G.$(s); if (e) e.classList.add('hidden'); });
     const nb = G.$('#new'); if (nb) { const a = document.createElement('a'); a.className = 'btn primary'; a.href = more; a.textContent = 'More puzzles ➜'; a.style.textDecoration = 'none'; nb.classList.add('hidden'); nb.after(a); }
     const s = G.$('#dailystreak'); if (s) s.textContent = G.daily.streak(g);

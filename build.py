@@ -434,9 +434,11 @@ V["tic-tac-toe-2-player"] = dict(base="tic-tac-toe", cfg={"mode": "pvp"}, emoji=
     faq=[("How do you play Tic Tac Toe with 2 players?", "Take turns placing X and O on the same device. The first to get three in a row wins."),
          ("Who goes first?", "X starts the first game, then the first player switches every game."),
          ("Does it keep score?", "Yes. X wins, O wins and draws are tracked until you reset the score.")])
-DAILY = ["daily-sudoku", "daily-word-search", "daily-solitaire"]
+import games_more
+games_more.register(G, V, pills, seg, OV)
+DAILY = ["daily-word-guess", "daily-sudoku", "daily-word-search", "daily-solitaire"]
 
-ORDER = ["solitaire", "spider-solitaire", "freecell", "pyramid-solitaire", "mahjong", "chess", "checkers", "snake-game", "minesweeper", "2048", "sudoku", "word-search", "hangman", "tic-tac-toe", "dinosaur-game"]
+ORDER = ["solitaire", "spider-solitaire", "freecell", "pyramid-solitaire", "mahjong", "chess", "checkers", "snake-game", "minesweeper", "2048", "sudoku", "word-search", "hangman", "tic-tac-toe", "dinosaur-game"] + games_more.NEW
 NAV = ["solitaire", "spider-solitaire", "mahjong", "chess", "snake-game", "sudoku", "minesweeper"]
 
 ICON = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%23ffcc33'/><stop offset='1' stop-color='%23ff5c8a'/></linearGradient></defs><rect width='100' height='100' rx='26' fill='url(%23g)'/><text x='50' y='70' font-size='56' text-anchor='middle'>🎮</text></svg>"
@@ -485,14 +487,14 @@ home = f'''<section class="hero"><h1>Play <span>Free Online Games</span></h1><p>
 <h2 class="sectionh" id="daily">📅 Daily puzzles</h2><div class="cards daily">{"".join(dcard(v) for v in DAILY)}</div>
 <h2 class="sectionh" id="games">🎮 All games</h2><div class="cards">{"".join(card(s) for s in ORDER)}</div>
 <div class="content"><h2>Free games, right in your browser</h2><p>{SITE} brings together the most popular classic games in one fast, clean place. Every game loads in seconds, saves your best scores, and works just as well with a touchscreen as with a mouse and keyboard.</p>
-<ul><li><b>Card games:</b> <a href="solitaire">Klondike Solitaire</a>, <a href="spider-solitaire">Spider Solitaire</a>, <a href="freecell">FreeCell</a> and <a href="pyramid-solitaire">Pyramid Solitaire</a>.</li><li><b>Tile games:</b> <a href="mahjong">Mahjong Solitaire</a>.</li><li><b>Board games:</b> <a href="chess">Chess</a>, <a href="checkers">Checkers</a> and <a href="tic-tac-toe">Tic Tac Toe</a>.</li><li><b>Word games:</b> <a href="word-search">Word Search</a> and <a href="hangman">Hangman</a>.</li><li><b>Puzzle games:</b> <a href="sudoku">Sudoku</a>, <a href="2048">2048</a> and <a href="minesweeper">Minesweeper</a>.</li><li><b>Arcade games:</b> the classic <a href="snake-game">Snake game</a> and the <a href="dinosaur-game">Dinosaur game</a>.</li></ul>
+<ul><li><b>Card games:</b> <a href="solitaire">Klondike Solitaire</a>, <a href="spider-solitaire">Spider Solitaire</a>, <a href="freecell">FreeCell</a> and <a href="pyramid-solitaire">Pyramid Solitaire</a>.</li><li><b>Tile games:</b> <a href="mahjong">Mahjong Solitaire</a>.</li><li><b>Board games:</b> <a href="chess">Chess</a>, <a href="checkers">Checkers</a>, <a href="reversi">Reversi</a>, <a href="four-in-a-row">4 in a Row</a> and <a href="tic-tac-toe">Tic Tac Toe</a>.</li><li><b>Word games:</b> <a href="word-guess">Word Guess</a>, <a href="word-search">Word Search</a> and <a href="hangman">Hangman</a>.</li><li><b>Puzzle games:</b> <a href="sudoku">Sudoku</a>, <a href="2048">2048</a>, <a href="minesweeper">Minesweeper</a>, <a href="sliding-puzzle">Sliding Puzzle</a> and <a href="memory-game">Memory Match</a>.</li><li><b>Arcade games:</b> <a href="snake-game">Snake</a>, <a href="falling-blocks">Falling Blocks</a>, <a href="brick-breaker">Brick Breaker</a>, <a href="flappy-flyer">Flappy Flyer</a> and the <a href="dinosaur-game">Dinosaur game</a>.</li></ul>
 <h2>Popular ways to play</h2><div class="more">{"".join(f'<a href="{v}"><span>{V[v]["emoji"]}</span>{V[v]["name"]}</a>' for v in V if v not in DAILY)}</div>
 <p>New games are added regularly, so check back soon.</p></div>'''
 home_faq = [("Are these games really free?", "Yes. Every game is free to play with no download, no account and no time limits."),
             ("Do the games work on mobile?", "Yes. Every game supports touch controls like tapping and swiping, and the layout adapts to your screen."),
             ("Do I need to download anything?", "No. All the games run instantly in your web browser.")]
 pages["index"] = page("index", "Free Online Games – Play Solitaire, Spider Solitaire, Mahjong, Chess & More",
-    "Play 15 free online games instantly: Solitaire, Spider Solitaire, FreeCell, Mahjong, Chess, Checkers, Sudoku, Snake and more. No download or sign-up. Works on phone, tablet and computer.",
+    f"Play {len(ORDER)} free online games instantly: Solitaire, Spider Solitaire, FreeCell, Mahjong, Chess, Checkers, Sudoku, Snake and more. No download or sign-up. Works on phone, tablet and computer.",
     home + '<div class="content"><h2>Frequently asked questions</h2><div class="faq">' + "".join(f"<details><summary>{q}</summary><p>{a}</p></details>" for q, a in home_faq) + "</div></div>", faq=home_faq)
 
 PREVIEW = os.environ.get("PREVIEW")

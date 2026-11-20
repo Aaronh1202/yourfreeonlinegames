@@ -217,3 +217,36 @@ select.sel{background:var(--bg2);color:var(--text);border:1px solid var(--line);
 .ck{grid-template-rows:repeat(8,1fr)}.ck .sq{min-height:0}
 .sectionh{font-size:22px;margin:26px 0 0;letter-spacing:-.3px}
 .dailybar{margin:0 0 12px;padding:10px 14px;border-radius:12px;background:linear-gradient(90deg,rgba(255,204,51,.16),rgba(255,92,138,.14));border:1px solid rgba(255,204,51,.35);font-weight:700;text-align:center}
+/* ---- new games (Nov 2026) ---- */
+.wg{display:grid;gap:6px;justify-content:center;margin:4px auto 12px}
+.wgrow{display:grid;grid-template-columns:repeat(5,min(15vw,58px));gap:6px}
+.wgrow.shake{animation:wgshake .4s}
+@keyframes wgshake{20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+.wgc{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:clamp(20px,6vw,30px);font-weight:800;text-transform:uppercase;border:2px solid var(--line);border-radius:8px;background:var(--bg2)}
+.wgc.f{border-color:#6a71b8}.wgc.g{background:#22a35a;border-color:#22a35a}.wgc.y{background:#c9a227;border-color:#c9a227}.wgc.b{background:#3a3f63;border-color:#3a3f63}
+.wgmsg{text-align:center;min-height:22px;font-weight:700;margin:0 0 6px;color:var(--accent)}
+.wgkeys{display:flex;flex-direction:column;gap:6px;align-items:center;max-width:520px;margin:0 auto}
+.wgkr{display:flex;gap:5px;width:100%;justify-content:center}
+.wgk{flex:1;max-width:44px;height:52px;border:0;border-radius:8px;background:#3d4478;color:#fff;font:700 15px inherit;font-family:inherit;text-transform:uppercase;cursor:pointer;touch-action:manipulation}
+.wgk.wide{max-width:70px;flex:1.5;font-size:12px}.wgk.g{background:#22a35a}.wgk.y{background:#c9a227}.wgk.b{background:#23274a;color:#7a80b0}
+.c4{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;background:#2747c9;padding:10px;border-radius:16px;width:min(100%,520px);margin:0 auto}
+.c4c{aspect-ratio:1;border-radius:50%;border:0;background:#0d1022;cursor:pointer;padding:0;box-shadow:inset 0 3px 6px rgba(0,0,0,.5)}
+.c4c.p1{background:radial-gradient(circle at 35% 35%,#ff8a8a,#e02f2f)}.c4c.p2{background:radial-gradient(circle at 35% 35%,#ffe680,#f2b705)}
+.c4c.win{outline:4px solid #fff;outline-offset:-4px}
+.mem{display:grid;gap:8px;width:min(100%,560px);margin:0 auto}
+.mc{aspect-ratio:3/4;border:0;border-radius:12px;background:linear-gradient(135deg,#ff5c8a,#ffcc33);cursor:pointer;padding:0;font-size:clamp(24px,7vw,40px);perspective:600px;transition:transform .25s;touch-action:manipulation}
+.mc .mf{display:none}.mc.up,.mc.done{background:#eef0ff;transform:rotateY(180deg)}.mc.up .mf,.mc.done .mf{display:inline-block;transform:rotateY(180deg)}
+.mc.done{opacity:.55;background:#c9f3dc}.mem[data-cols="6"] .mc{font-size:clamp(20px,5vw,34px)}
+#bb,#fl,#fb{touch-action:none;border-radius:14px;height:auto}
+#bb{background:#0a0d1f;width:min(100%,560px)}#fl{width:min(100%,400px)}#fb{width:min(62vw,300px)}
+.fbside{display:flex;flex-direction:column;gap:10px;align-items:center}.fbside canvas{background:#0a0d1f;border-radius:10px}
+.fbpad{display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap}.fbpad button{min-width:56px;font-size:20px;padding:12px}
+.rv{display:grid;grid-template-columns:repeat(8,1fr);gap:3px;background:#0b5d33;padding:8px;border-radius:14px;width:min(100%,520px);margin:0 auto}
+.rvc{aspect-ratio:1;background:#14894c;border:0;border-radius:4px;padding:0;display:flex;align-items:center;justify-content:center;cursor:default;position:relative}
+.rvc.ok{cursor:pointer}.rvc.ok::after{content:"";width:26%;height:26%;border-radius:50%;background:rgba(0,0,0,.25)}
+.rvc.last{box-shadow:inset 0 0 0 3px #ffcc33}
+.rvc i{width:80%;height:80%;border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,.4)}.rvc i.k{background:radial-gradient(circle at 35% 35%,#555,#111)}.rvc i.w{background:radial-gradient(circle at 35% 35%,#fff,#cfd3e6)}
+.sp{display:grid;gap:6px;width:min(100%,440px);margin:0 auto;background:var(--bg2);padding:8px;border-radius:14px}
+.spt{aspect-ratio:1;border:0;border-radius:10px;background:linear-gradient(135deg,#6cb6ff,#c39bff);color:#0d1022;font:800 clamp(18px,6vw,32px) inherit;font-family:inherit;cursor:pointer;touch-action:manipulation}
+.spt.ok{background:linear-gradient(135deg,#3ddc97,#9be15d)}.spt.blank{background:transparent}.sp[data-n="5"] .spt{font-size:clamp(14px,4.5vw,24px)}
+footer a{display:inline-block;margin-bottom:6px}footer .wrap>div{min-width:0}
